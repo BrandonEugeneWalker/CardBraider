@@ -18,7 +18,11 @@ CardNode::CardNode(BaseballCard* nodeCard)
 
 CardNode::~CardNode()
 {
-    //dtor
+    BaseballCard dereferencedCard = *(this -> baseballCard);
+    dereferencedCard.~BaseballCard();
+    this -> nextName = nullptr;
+    this -> nextYear = nullptr;
+    this -> nextCondition = nullptr;
 }
 
 string CardNode::getFirstName() const
@@ -59,6 +63,21 @@ CardNode* CardNode::getNextYear()
 CardNode* CardNode::getNextCondition()
 {
     return this -> nextCondition;
+}
+
+void CardNode::setNextName(CardNode* node)
+{
+    this -> nextName = node;
+}
+
+void CardNode::setNextYear(CardNode* node)
+{
+    this -> nextYear = node;
+}
+
+void CardNode::setNextCondition(CardNode* node)
+{
+    this -> nextCondition = node;
 }
 
 }

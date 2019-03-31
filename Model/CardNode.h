@@ -92,6 +92,33 @@ public:
     //      the next condition node
     CardNode* getNextCondition();
 
+    //Sets the next name node.
+    //@precondition
+    //      none
+    //@postcondition
+    //      the next node is set
+    //@para node
+    //      the node to set
+    void setNextName(CardNode* node);
+
+    //Sets the next year node.
+    //@precondition
+    //      none
+    //@postcondition
+    //      the next node is set
+    //@para node
+    //      the node to set
+    void setNextYear(CardNode* node);
+
+    //Sets the next condition node.
+    //@precondition
+    //      none
+    //@postcondition
+    //      the next node is set
+    //@para node
+    //      the node to set
+    void setNextCondition(CardNode* node);
+
 
 };
 

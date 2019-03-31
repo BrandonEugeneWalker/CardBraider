@@ -12,6 +12,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 					<Add directory="View" />
 					<Add directory="../CardBraider" />
@@ -29,6 +30,8 @@
 		</Linker>
 		<Unit filename="Model/BaseballCard.cpp" />
 		<Unit filename="Model/BaseballCard.h" />
+		<Unit filename="Model/CardNode.cpp" />
+		<Unit filename="Model/CardNode.h" />
 		<Unit filename="Utils/Utils.cpp" />
 		<Unit filename="Utils/Utils.h" />
 		<Unit filename="View/AddBaseballCardWindow.cpp" />
