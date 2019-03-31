@@ -64,3 +64,75 @@
 1552933775 source:/home/csuser/Documents/A3/CardBraider/View/OKCancelWindow.cpp
 	"OKCancelWindow.h"
 
+1553999393 source:/home/csuser/Documents/CardBraider/Model/BaseballCard.cpp
+	"BaseballCard.h"
+
+1554001126 /home/csuser/Documents/CardBraider/Model/BaseballCard.h
+	<string>
+
+1553006935 source:/home/csuser/Documents/CardBraider/Utils/Utils.cpp
+	"Utils.h"
+	<algorithm>
+	<sstream>
+
+1553005593 /home/csuser/Documents/CardBraider/Utils/Utils.h
+	<string>
+
+1553007203 source:/home/csuser/Documents/CardBraider/View/AddBaseballCardWindow.cpp
+	"AddBaseballCardWindow.h"
+	"Utils.h"
+	<Fl/fl_ask.H>
+	<sstream>
+
+1553007422 /home/csuser/Documents/CardBraider/View/AddBaseballCardWindow.h
+	"OKCancelWindow.h"
+	"BaseballCard.h"
+	<Fl/Fl_Input.H>
+
+1553007504 /home/csuser/Documents/CardBraider/View/OKCancelWindow.h
+	<Fl/Fl_Window.H>
+	<Fl/Fl_Button.H>
+
+1552933775 source:/home/csuser/Documents/CardBraider/View/OKCancelWindow.cpp
+	"OKCancelWindow.h"
+
+1553998119 source:/home/csuser/Documents/CardBraider/main.cpp
+	"BaseballCardCollectionWindow.h"
+
+1553007452 /home/csuser/Documents/CardBraider/View/BaseballCardCollectionWindow.h
+	<FL/Fl.H>
+	<FL/Fl_Window.H>
+	<FL/Fl_Group.H>
+	<FL/Fl_Round_Button.H>
+	<FL/Fl_Output.H>
+	<FL/Fl_Text_Buffer.H>
+	<FL/Fl_Text_Display.H>
+	<FL/Fl_Button.H>
+	<vector>
+	<string>
+
+1554001038 source:/home/csuser/Documents/CardBraider/Model/CardNode.cpp
+	"CardNode.h"
+
+1554001126 /home/csuser/Documents/CardBraider/Model/CardNode.h
+	<string>
+	"BaseballCard.h"
+
+1553998119 source:/home/csuser/Documents/CardBraider/View/BaseballCardCollectionWindow.cpp
+	"BaseballCardCollectionWindow.h"
+	"DeleteBaseballCardWindow.h"
+	"AddBaseballCardWindow.h"
+	<FL/fl_types.h>
+	<Fl/fl_draw.H>
+	<Fl/Fl_File_Chooser.H>
+	<iostream>
+
+1553007493 /home/csuser/Documents/CardBraider/View/DeleteBaseballCardWindow.h
+	"OKCancelWindow.h"
+	<Fl/Fl_Input.H>
+	<string>
+
+1553998119 source:/home/csuser/Documents/CardBraider/View/DeleteBaseballCardWindow.cpp
+	"DeleteBaseballCardWindow.h"
+	<iostream>
+

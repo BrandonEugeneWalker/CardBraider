@@ -1,4 +1,3 @@
-
 #include "BaseballCardCollectionWindow.h"
 using namespace view;
 

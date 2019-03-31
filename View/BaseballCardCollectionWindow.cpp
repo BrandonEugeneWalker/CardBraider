@@ -329,7 +329,8 @@ void BaseballCardCollectionWindow::setSummaryText(const string& outputText)
 //
 // @return The sort order the user has selected
 //
-BaseballCardCollectionWindow::SortOrder BaseballCardCollectionWindow::getSortOrder() const {
+BaseballCardCollectionWindow::SortOrder BaseballCardCollectionWindow::getSortOrder() const
+{
     return this->sortOrderSelection;
 }
 

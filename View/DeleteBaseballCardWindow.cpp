@@ -3,7 +3,8 @@
 #include <iostream>
 using namespace std;
 
-namespace view {
+namespace view
+{
 
 //
 // Constructs an delete card window creating and initializing all the widgets that will be displayed
