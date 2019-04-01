@@ -114,7 +114,7 @@
 1554067054 source:/home/csuser/Documents/CardBraider/Model/CardNode.cpp
 	"CardNode.h"
 
-1554072311 /home/csuser/Documents/CardBraider/Model/CardNode.h
+1554073082 /home/csuser/Documents/CardBraider/Model/CardNode.h
 	<string>
 	"BaseballCard.h"
 
@@ -135,4 +135,12 @@
 1553998119 source:/home/csuser/Documents/CardBraider/View/DeleteBaseballCardWindow.cpp
 	"DeleteBaseballCardWindow.h"
 	<iostream>
+
+1554073017 source:/home/csuser/Documents/CardBraider/Model/CardBraider.cpp
+	"CardBraider.h"
+
+1554072798 /home/csuser/Documents/CardBraider/Model/CardBraider.h
+	<string>
+	"CardNode.h"
+	"Utils.h"
 

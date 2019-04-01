@@ -30,6 +30,8 @@
 		</Linker>
 		<Unit filename="Model/BaseballCard.cpp" />
 		<Unit filename="Model/BaseballCard.h" />
+		<Unit filename="Model/CardBraider.cpp" />
+		<Unit filename="Model/CardBraider.h" />
 		<Unit filename="Model/CardNode.cpp" />
 		<Unit filename="Model/CardNode.h" />
 		<Unit filename="Utils/Utils.cpp" />
