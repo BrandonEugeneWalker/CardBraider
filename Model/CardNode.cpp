@@ -12,11 +12,10 @@ namespace model
 CardNode::CardNode(BaseballCard* nodeCard)
 {
     this -> baseballCard = nodeCard;
-    BaseballCard dereferencedCard = *nodeCard;
-    this -> firstName = dereferencedCard.getFirstName();
-    this -> lastName = dereferencedCard.getLastName();
-    this -> year = dereferencedCard.getYear();
-    this -> value = dereferencedCard.getPrice();
+    this -> firstName = nodeCard -> getFirstName();
+    this -> lastName = nodeCard -> getLastName();
+    this -> year = nodeCard -> getYear();
+    this -> value = nodeCard -> getPrice();
     this -> nextName = nullptr;
     this -> nextYear = nullptr;
     this -> nextCondition = nullptr;
@@ -38,27 +37,27 @@ CardNode::~CardNode()
 
 string CardNode::getFirstName() const
 {
-    return this -> firstName;
+    return this -> baseballCard -> getFirstName();
 }
 
 string CardNode::getLastName() const
 {
-    return this -> lastName;
+    return this -> baseballCard -> getLastName();
 }
 
 BaseballCard::Condition CardNode::getCondition() const
 {
-    return this -> condition;
+    return this -> baseballCard -> getCondition();
 }
 
 int CardNode::getYear() const
 {
-    return this -> year;
+    return this -> baseballCard -> getYear();
 }
 
 int CardNode::getValue() const
 {
-    return this -> value;
+    return this -> baseballCard -> getPrice();
 }
 
 CardNode* CardNode::getNextName()
@@ -94,6 +93,11 @@ void CardNode::setNextCondition(CardNode* node)
 string CardNode::debugDescription()
 {
     return this -> firstName + " " + this -> lastName;
+}
+
+BaseballCard* CardNode::getBaseballCard()
+{
+    return this -> baseballCard;
 }
 
 }

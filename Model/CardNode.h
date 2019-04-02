@@ -126,6 +126,13 @@ public:
     //      a object description
     string debugDescription();
 
+    //Gets and returns the baseball card stored in the node.
+    //@precondition
+    //      none
+    //@return
+    //      the baseball card stored in the node.
+    BaseballCard* getBaseballCard();
+
 
 };
 

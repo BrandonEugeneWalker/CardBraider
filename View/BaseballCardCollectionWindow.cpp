@@ -148,9 +148,18 @@ void BaseballCardCollectionWindow::cbLoad(Fl_Widget* widget, void* data)
     window->promptUserForFilename(Fl_File_Chooser::SINGLE, "Card file to load");
 
     string fileName = window -> getFilename();
-    FileReader reader;
-    vector<BaseballCard> results = reader.loadFile(fileName);
-    window -> controller.addCardsFromCollection(results);
+    if (fileName != "")
+    {
+        window -> controller.resetBraidedList();
+        FileReader reader;
+        vector<BaseballCard*> results = reader.loadFile(fileName);
+        window -> controller.addCardsFromCollection(results);
+        window -> updateOutput();
+    }
+    else
+    {
+        window -> setSummaryText("A file was not selected.");
+    }
 
 
 #ifdef DIAGNOSTIC_OUTPUT

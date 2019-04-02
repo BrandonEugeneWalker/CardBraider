@@ -20,9 +20,9 @@ namespace io
 class FileReader
 {
     private:
-        int parseCondition(string condition);
+        BaseballCard::Condition parseCondition(string condition);
         void parseLine(string line);
-        vector<BaseballCard> loadedCards;
+        vector<BaseballCard*> loadedCards;
 
     public:
         //Creates a new instance of a FileReader.
@@ -42,7 +42,7 @@ class FileReader
         //      a list of baseball cards
         //@para fileName
         //      the file name
-        vector<BaseballCard> loadFile(string fileName);
+        vector<BaseballCard*> loadFile(string fileName);
 };
 
 }

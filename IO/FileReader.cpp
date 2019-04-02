@@ -1,19 +1,29 @@
 #include "FileReader.h"
 
+#define DIAGNOSTIC_OUTPUT
+
+#ifdef DIAGNOSTIC_OUTPUT
+#include <iostream>
+#endif
+
 namespace io
 {
 
 FileReader::FileReader()
 {
-    //ctor
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "FileReader Constructor:" << endl;
+    #endif
 }
 
 FileReader::~FileReader()
 {
-    //dtor
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "FileReader Destructor:" << endl;
+    #endif
 }
 
-vector<BaseballCard> FileReader::loadFile(string fileName)
+vector<BaseballCard*> FileReader::loadFile(string fileName)
 {
     if (fileName == "")
     {
@@ -32,35 +42,50 @@ vector<BaseballCard> FileReader::loadFile(string fileName)
     return this -> loadedCards;
 }
 
-int FileReader::parseCondition(string condition)
+BaseballCard::Condition FileReader::parseCondition(string condition)
 {
-    int returnInt = 5;
-    if (condition == "Poor")
+    string upperCondition = UTILS_H::toUpperCase(condition);
+
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Current Condition To Parse: " << upperCondition << endl;
+    #endif
+
+    BaseballCard::Condition parsedCondition = BaseballCard::Condition::UNKNOWN;
+    if (upperCondition == "POOR")
     {
-        returnInt = 0;
+        parsedCondition = BaseballCard::Condition::POOR;
     }
-    else if (condition == "Good")
+    else if (upperCondition == "GOOD")
     {
-        returnInt = 1;
+        parsedCondition = BaseballCard::Condition::GOOD;
     }
-    else if (condition == "Excellent")
+    else if (upperCondition == "EXCELLENT")
     {
-        returnInt = 2;
+        parsedCondition = BaseballCard::Condition::EXCELLENT;
     }
-    else if (condition == "Mint")
+    else if (upperCondition == "MINT")
     {
-        returnInt = 3;
+        parsedCondition = BaseballCard::Condition::MINT;
     }
-    else if (condition == "Pristine")
+    else if (upperCondition == "PRISTINE")
     {
-        returnInt = 4;
+        parsedCondition = BaseballCard::Condition::PRISTINE;
     }
-    return returnInt;
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Current Parsed Condition: " << parsedCondition << endl;
+    #endif
+    return parsedCondition;
 }
 
 
 void FileReader::parseLine(string line)
 {
+    if (line == "")
+    {
+        return;
+    }
+
+
     char* errorMessage = new char;
     vector<string> cardVariables;
     istringstream lineStream(line, ios_base::in);
@@ -72,11 +97,14 @@ void FileReader::parseLine(string line)
     string lastName = cardVariables[0];
     string firstName = cardVariables[1];
     int year = UTILS_H::toInt(cardVariables[2], errorMessage);
-    int intCondition = parseCondition(cardVariables[3]);
-    BaseballCard::Condition condition = static_cast<BaseballCard::Condition>(intCondition);
+    //int intCondition = parseCondition(cardVariables[3]);
+    BaseballCard::Condition condition = parseCondition(cardVariables[3]);
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Condition Being Added To Card: " << condition << endl;
+    #endif
     int value = UTILS_H::toInt(cardVariables[4], errorMessage);
 
-    BaseballCard cardToAdd(firstName, lastName, year, condition, value);
+    BaseballCard* cardToAdd = new BaseballCard(firstName, lastName, year, condition, value);
     this -> loadedCards.push_back(cardToAdd);
 }
 

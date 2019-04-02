@@ -48,19 +48,27 @@ string CardCollectionController::buildOutput(bool isAscending)
     return results;
 }
 
-void CardCollectionController::addCardsFromCollection(vector<BaseballCard> cards)
+void CardCollectionController::addCardsFromCollection(vector<BaseballCard*> cards)
 {
 
     #ifdef DIAGNOSTIC_OUTPUT
         cout << "Inside Controller Add All:" << endl;
     #endif
 
-    for (BaseballCard currentCard : cards)
+    for (BaseballCard* currentCard : cards)
     {
-        this -> addCard(&currentCard);
+        if (currentCard != nullptr)
+        {
+            this -> addCard(currentCard);
+        }
     }
 }
 
+void CardCollectionController::resetBraidedList()
+{
+    delete this -> braidedCardList;
+    this -> braidedCardList = new CardBraider();
+}
 
 
 }

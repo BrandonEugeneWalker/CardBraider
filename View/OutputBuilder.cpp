@@ -79,13 +79,14 @@ void OutputBuilder::buildCardDescription(CardNode* node)
     BaseballCard::Condition condition = node -> getCondition();
     int value = node -> getValue();
     int year = node -> getYear();
+    string valueString = to_string(value);
     string fullName = firstName + " " + lastName;
     string conditionString = determineCondition(condition);
 
     outputStream << left << setw(20) << fullName;
     outputStream << left << setw(10) << year;
     outputStream << left << setw(10) << conditionString;
-    outputStream << right << setw(10) << "$" << std::put_money(value);
+    outputStream << right << setw(10) << "$" << std::put_money(valueString, false);
     outputStream << endl;
 
     string currentOutput = this -> outputString;
@@ -96,7 +97,11 @@ void OutputBuilder::buildCardDescription(CardNode* node)
 
 string OutputBuilder::determineCondition(BaseballCard::Condition condition)
 {
-    string returnString;
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Output Builder Given Condition: " << condition << endl;
+    #endif
+
+    string returnString = "Unknown";
     if (condition == 0)
     {
         returnString = "Poor";
@@ -117,10 +122,7 @@ string OutputBuilder::determineCondition(BaseballCard::Condition condition)
     {
         returnString = "Pristine";
     }
-    else
-    {
-        returnString = "Unknown";
-    }
+
     return returnString;
 }
 

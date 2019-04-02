@@ -74,7 +74,14 @@ class CardCollectionController
         //      the cards are added
         //@para cards
         //      the collection of cards to add
-        void addCardsFromCollection(vector<BaseballCard> cards);
+        void addCardsFromCollection(vector<BaseballCard*> cards);
+
+        //Deletes the current braided list and replaces it with a new one.
+        //@precondition
+        //      none
+        //@postcondition
+        //      the old list is deleted and a new one is created
+        void resetBraidedList();
 };
 
 }
