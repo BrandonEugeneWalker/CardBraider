@@ -118,7 +118,7 @@
 	<string>
 	"BaseballCard.h"
 
-1553998119 source:/home/csuser/Documents/CardBraider/View/BaseballCardCollectionWindow.cpp
+1554143249 source:/home/csuser/Documents/CardBraider/View/BaseballCardCollectionWindow.cpp
 	"BaseballCardCollectionWindow.h"
 	"DeleteBaseballCardWindow.h"
 	"AddBaseballCardWindow.h"
@@ -143,4 +143,14 @@
 	<string>
 	"CardNode.h"
 	"Utils.h"
+
+1554142455 source:/home/csuser/Documents/CardBraider/View/OutputBuilder.cpp
+	"OutputBuilder.h"
+
+1554142171 /home/csuser/Documents/CardBraider/View/OutputBuilder.h
+	<string>
+	<iostream>
+	<iomanip>
+	<sstream>
+	"CardBraider.h"
 

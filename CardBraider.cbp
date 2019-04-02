@@ -18,6 +18,7 @@
 					<Add directory="../CardBraider" />
 					<Add directory="Model" />
 					<Add directory="Utils" />
+					<Add directory="IO" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -28,6 +29,8 @@
 		<Linker>
 			<Add option="`fltk-config --ldstaticflags`" />
 		</Linker>
+		<Unit filename="IO/FileReader.cpp" />
+		<Unit filename="IO/FileReader.h" />
 		<Unit filename="Model/BaseballCard.cpp" />
 		<Unit filename="Model/BaseballCard.h" />
 		<Unit filename="Model/CardBraider.cpp" />
@@ -44,6 +47,8 @@
 		<Unit filename="View/DeleteBaseballCardWindow.h" />
 		<Unit filename="View/OKCancelWindow.cpp" />
 		<Unit filename="View/OKCancelWindow.h" />
+		<Unit filename="View/OutputBuilder.cpp" />
+		<Unit filename="View/OutputBuilder.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="notes.txt" />
 		<Extensions>

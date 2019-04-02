@@ -294,7 +294,7 @@ void BaseballCardCollectionWindow::cbDeleteCard(Fl_Widget* widget, void* data)
 //
 // Determines and sets the sort order based on the radio button the user has selected.
 //
-// @preconditon none
+// @precondition none
 // @postcondition getSortOrder() == sort order that user selected
 //
 void BaseballCardCollectionWindow::setSortOrderBasedOnSelection()
