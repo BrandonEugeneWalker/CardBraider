@@ -112,6 +112,11 @@ void BaseballCardCollectionWindow::cbSortingMethodChanged(Fl_Widget* widget, voi
     BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data;
     window->sortingMethodChanged();
 
+    SortOrder order = window -> getSortOrder();
+    window -> setSortOrderBasedOnSelection();
+    window -> updateOutput();
+
+
 #ifdef DIAGNOSTIC_OUTPUT
     cout << "Sorting method: " << window->getSortOrder() << endl;
 #endif
@@ -141,6 +146,12 @@ void BaseballCardCollectionWindow::cbLoad(Fl_Widget* widget, void* data)
 {
     BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data;
     window->promptUserForFilename(Fl_File_Chooser::SINGLE, "Card file to load");
+
+    string fileName = window -> getFilename();
+    FileReader reader;
+    vector<BaseballCard> results = reader.loadFile(fileName);
+    window -> controller.addCardsFromCollection(results);
+
 
 #ifdef DIAGNOSTIC_OUTPUT
     cout << "Filename selected: " << window->getFilename() << endl;
@@ -234,6 +245,14 @@ void BaseballCardCollectionWindow::cbAddCard(Fl_Widget* widget, void* data)
     while (addCard.shown())
     {
         Fl::wait();
+    }
+
+    if (addCard.getWindowResult() == OKCancelWindow::WindowResult::OK)
+    {
+        BaseballCard* addedCard = addCard.getCard();
+        window -> controller.addCard(addedCard);
+
+        window -> updateOutput();
     }
 
 #ifdef DIAGNOSTIC_OUTPUT
@@ -356,6 +375,26 @@ BaseballCardCollectionWindow::~BaseballCardCollectionWindow()
     delete this->saveButton;
     delete this->addButton;
     delete this->deleteButton;
+}
+
+void BaseballCardCollectionWindow::updateOutput()
+{
+    BaseballCardCollectionWindow::SortOrder order = this -> sortOrderSelection;
+    string newOutput;
+    if (order == 0)
+    {
+        newOutput = this -> controller.buildOutput(true);
+    }
+    else if (order == 1)
+    {
+        newOutput = this -> controller.buildOutput(false);
+    }
+    else
+    {
+        newOutput = "Not yet implemented.";
+    }
+
+    this -> setSummaryText(newOutput);
 }
 
 }

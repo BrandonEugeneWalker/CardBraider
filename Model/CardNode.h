@@ -119,6 +119,13 @@ public:
     //      the node to set
     void setNextCondition(CardNode* node);
 
+    //A method that returns a description of an object for debugging purposes.
+    //@precondition
+    //      none
+    //@return
+    //      a object description
+    string debugDescription();
+
 
 };
 

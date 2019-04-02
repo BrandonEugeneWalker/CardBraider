@@ -15,6 +15,12 @@
 #include <string>
 using namespace std;
 
+#include "CardCollectionController.h"
+using namespace controller;
+
+#include "FileReader.h"
+using namespace io;
+
 namespace view
 {
 
@@ -59,6 +65,11 @@ private:
     void setSortOrderBasedOnSelection();
 
     void draw();
+
+    CardCollectionController controller;
+
+    void updateOutput();
+
 
 public:
     BaseballCardCollectionWindow(int width, int height, const char* title);

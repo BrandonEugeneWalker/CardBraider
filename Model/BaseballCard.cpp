@@ -1,5 +1,11 @@
 #include "BaseballCard.h"
 
+#define DIAGNOSTIC_OUTPUT
+
+#ifdef DIAGNOSTIC_OUTPUT
+#include <iostream>
+#endif
+
 namespace model
 {
 
@@ -10,6 +16,9 @@ BaseballCard::BaseballCard(const string& firstName, const string& lastName, int 
     this -> year = year;
     this -> condition = condition;
     this -> price = price;
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Constructed Card: " << this -> debugDescription() << endl;
+    #endif
 }
 
 const string& BaseballCard::getFirstName() const
@@ -39,7 +48,15 @@ int BaseballCard::getPrice() const
 
 BaseballCard::~BaseballCard()
 {
-    //dtor
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Destroyed Card: " << this -> debugDescription() << endl;
+    #endif
+}
+
+string BaseballCard::debugDescription()
+{
+    string returnString = this -> firstName + " " + this -> lastName;
+    return returnString;
 }
 
 }

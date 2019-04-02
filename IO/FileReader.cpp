@@ -25,8 +25,8 @@ vector<BaseballCard> FileReader::loadFile(string fileName)
     while (! inputFile.eof())
     {
         string currentLine;
-            getline(inputFile, currentLine);
-            parseLine(currentLine);
+        getline(inputFile, currentLine);
+        parseLine(currentLine);
     }
     inputFile.close();
     return this -> loadedCards;

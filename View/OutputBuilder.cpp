@@ -1,16 +1,24 @@
 #include "OutputBuilder.h"
 
+#define DIAGNOSTIC_OUTPUT
+
+
 namespace view
 {
 
 OutputBuilder::OutputBuilder()
 {
     this -> coutBuff = nullptr;
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Constructed OutputBuilder: " << endl;
+    #endif
 }
 
 OutputBuilder::~OutputBuilder()
 {
-    //dtor
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Destroyed OutputBuilder: " << endl;
+    #endif
 }
 
 void OutputBuilder::changeOutputLocation()
@@ -35,11 +43,11 @@ string OutputBuilder::buildOutput(bool isAscending, CardNode* head)
 {
     if (head == nullptr)
     {
-            return "";
+            return "The collection is empty.";
     }
-    changeOutputLocation();
+    //changeOutputLocation();
     buildByLastName(isAscending, head);
-    returnOutputLocation();
+    //returnOutputLocation();
     return this -> outputString;
 
 }
@@ -50,36 +58,40 @@ void OutputBuilder::buildByLastName(bool isAscending, CardNode* node)
     {
         return;
     }
-    CardNode currentNode = *node;
-    CardNode* nextNode = currentNode.getNextName();
     if (isAscending)
     {
         buildCardDescription(node);
-        buildByLastName(isAscending, nextNode);
+        buildByLastName(isAscending, node -> getNextName());
     }
     else
     {
-        buildByLastName(isAscending, nextNode);
+        buildByLastName(isAscending, node -> getNextName());
         buildCardDescription(node);
     }
 }
 
 void OutputBuilder::buildCardDescription(CardNode* node)
 {
-    CardNode currentNode = *node;
-    string firstName = currentNode.getFirstName();
-    string lastName = currentNode.getLastName();
-    BaseballCard::Condition condition = currentNode.getCondition();
-    int value = currentNode.getValue();
-    int year = currentNode.getYear();
+    stringstream outputStream;
+
+    string firstName = node -> getFirstName();
+    string lastName = node -> getLastName();
+    BaseballCard::Condition condition = node -> getCondition();
+    int value = node -> getValue();
+    int year = node -> getYear();
     string fullName = firstName + " " + lastName;
     string conditionString = determineCondition(condition);
 
-    cout << left << setw(20) << fullName;
-    cout << left << setw(20) << year;
-    cout << left << setw(20) << conditionString;
-    cout << right << setw(20) << std::put_money(value);
-    cout << endl;
+    outputStream << left << setw(20) << fullName;
+    outputStream << left << setw(10) << year;
+    outputStream << left << setw(10) << conditionString;
+    outputStream << right << setw(10) << "$" << std::put_money(value);
+    outputStream << endl;
+
+    string currentOutput = this -> outputString;
+    string results = outputStream.str();
+    string newOutput = currentOutput + results;
+    this -> outputString = newOutput;
 }
 
 string OutputBuilder::determineCondition(BaseballCard::Condition condition)

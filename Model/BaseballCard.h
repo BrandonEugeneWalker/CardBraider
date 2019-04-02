@@ -76,6 +76,13 @@ public:
     // @return
     //      the price
     int getPrice() const;
+
+    //A method that returns a description of an object for debugging purposes.
+    //@precondition
+    //      none
+    //@return
+    //      a object description
+    string debugDescription();
 };
 
 }

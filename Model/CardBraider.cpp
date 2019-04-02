@@ -1,11 +1,20 @@
 #include "CardBraider.h"
 
+#define DIAGNOSTIC_OUTPUT
+
+#ifdef DIAGNOSTIC_OUTPUT
+#include <iostream>
+#endif
+
 namespace model
 {
 
 CardBraider::CardBraider()
 {
     this -> head = nullptr;
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Constructed Braider: " << endl;
+    #endif
 }
 
 CardBraider::~CardBraider()
@@ -15,6 +24,9 @@ CardBraider::~CardBraider()
         return;
     }
     deconstructNode(this -> head);
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Destroyed Braider: " << endl;
+    #endif
 }
 
 void CardBraider::deconstructNode(CardNode* currentNode)
@@ -23,14 +35,20 @@ void CardBraider::deconstructNode(CardNode* currentNode)
     {
         return;
     }
-    CardNode current = *currentNode;
-    deconstructNode(current.getNextName());
-    current.~CardNode();
+    deconstructNode(currentNode -> getNextName());
+    delete currentNode;
 }
 
 //Starting with last name braid.
 void CardBraider::addNode(CardNode* node)
 {
+    if (node == nullptr)
+    {
+        return;
+    }
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Added Node: " << node -> debugDescription() << endl;
+    #endif
     if (this -> head == nullptr)
     {
         this -> head = node;
@@ -43,47 +61,62 @@ void CardBraider::addNode(CardNode* node)
 
 void CardBraider::addByNameBraid(CardNode* currentNode, CardNode* nodeToAdd)
 {
-    CardNode current = *currentNode;
-    CardNode given = *nodeToAdd;
-    string givenString = given.getLastName();
-    string currentString = current.getLastName();
+    if (currentNode == nullptr)
+    {
+        nodeToAdd -> setNextName(this -> head);
+        this -> head = nodeToAdd;
+        return;
+    }
+    if (nodeToAdd == nullptr)
+    {
+        return;
+    }
+
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Added Node By Name: " << nodeToAdd -> debugDescription() << endl;
+    #endif
+
+    string givenString = nodeToAdd -> getLastName();
+    string currentString = currentNode -> getLastName();
+
     if (givenString < currentString)
     {
-        CardNode* newCurrent = current.getNextName();
-        addByNameBraid(newCurrent, nodeToAdd);
+        this -> addByNameBraid(currentNode -> getNextName(), nodeToAdd);
     }
     else
     {
-        CardNode* nextNode = current.getNextName();
-        given.setNextName(nextNode);
-        current.setNextName(nodeToAdd);
+        nodeToAdd -> setNextName(currentNode -> getNextName());
+        currentNode -> setNextName(nodeToAdd);
     }
 }
 
 void CardBraider::deleteNode(string name, CardNode* currentNode, CardNode* previousNode)
 {
-    if (currentNode == nullptr)
+    if (this -> head == nullptr)
     {
         return;
     }
-    CardNode prev = *previousNode;
-    CardNode current = *currentNode;
-    string currentName = current.getLastName();
+    if (currentNode == nullptr)
+    {
+        currentNode = this -> head;
+    }
+
+    string currentName = currentNode -> getLastName();
     string currentNameToUpper = UTILS_H::toUpperCase(currentName);
     string givenToUpper = UTILS_H::toUpperCase(name);
-    CardNode* nextNode = current.getNextName();
+    CardNode* nextNode = currentNode -> getNextName();
     deleteNode(name, nextNode, currentNode);
     if (currentNameToUpper == givenToUpper)
     {
         if (previousNode == nullptr)
         {
             this -> head = nextNode;
-            current.~CardNode();
+            delete currentNode;
         }
         else
         {
-            prev.setNextName(nextNode);
-            current.~CardNode();
+            previousNode -> setNextName(nextNode);
+            delete currentNode;
         }
     }
 }

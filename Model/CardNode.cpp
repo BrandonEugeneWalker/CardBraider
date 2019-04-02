@@ -1,5 +1,11 @@
 #include "CardNode.h"
 
+#define DIAGNOSTIC_OUTPUT
+
+#ifdef DIAGNOSTIC_OUTPUT
+#include <iostream>
+#endif
+
 namespace model
 {
 
@@ -14,15 +20,20 @@ CardNode::CardNode(BaseballCard* nodeCard)
     this -> nextName = nullptr;
     this -> nextYear = nullptr;
     this -> nextCondition = nullptr;
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Constructed Node: " << this -> debugDescription() << endl;
+    #endif
 }
 
 CardNode::~CardNode()
 {
-    BaseballCard dereferencedCard = *(this -> baseballCard);
-    dereferencedCard.~BaseballCard();
+    delete this -> baseballCard;
     this -> nextName = nullptr;
     this -> nextYear = nullptr;
     this -> nextCondition = nullptr;
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "Destroyed Node: " << this -> debugDescription() << endl;
+    #endif
 }
 
 string CardNode::getFirstName() const
@@ -78,6 +89,11 @@ void CardNode::setNextYear(CardNode* node)
 void CardNode::setNextCondition(CardNode* node)
 {
     this -> nextCondition = node;
+}
+
+string CardNode::debugDescription()
+{
+    return this -> firstName + " " + this -> lastName;
 }
 
 }
