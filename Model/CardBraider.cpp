@@ -12,9 +12,9 @@ namespace model
 CardBraider::CardBraider()
 {
     this -> head = nullptr;
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Constructed Braider: " << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Constructed Braider: " << endl;
+#endif
 }
 
 CardBraider::~CardBraider()
@@ -24,9 +24,9 @@ CardBraider::~CardBraider()
         return;
     }
     deconstructNode(this -> head);
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Destroyed Braider: " << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Destroyed Braider: " << endl;
+#endif
 }
 
 void CardBraider::deconstructNode(CardNode* currentNode)
@@ -46,9 +46,9 @@ void CardBraider::addNode(CardNode* node)
     {
         return;
     }
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Added Node: " << node -> debugDescription() << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Added Node: " << node -> debugDescription() << endl;
+#endif
     if (this -> head == nullptr)
     {
         this -> head = node;
@@ -72,9 +72,9 @@ void CardBraider::addByNameBraid(CardNode* currentNode, CardNode* nodeToAdd)
         return;
     }
 
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Added Node By Name: " << nodeToAdd -> debugDescription() << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Added Node By Name: " << nodeToAdd -> debugDescription() << endl;
+#endif
 
     string givenString = nodeToAdd -> getLastName();
     string currentString = currentNode -> getLastName();

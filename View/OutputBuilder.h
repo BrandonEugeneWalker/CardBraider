@@ -17,12 +17,10 @@ class OutputBuilder
 {
     private:
         string outputString;
-        streambuf* coutBuff;
-        void changeOutputLocation();
-        void returnOutputLocation();
         void buildByLastName(bool isAscending, CardNode* node);
         void buildCardDescription(CardNode* node);
         string determineCondition(BaseballCard::Condition condition);
+        string buildMonetaryOutput(int value);
 
     public:
         //Creates a new instance of a OutputBuilder.

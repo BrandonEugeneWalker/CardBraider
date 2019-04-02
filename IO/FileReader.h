@@ -19,30 +19,30 @@ namespace io
 
 class FileReader
 {
-    private:
-        BaseballCard::Condition parseCondition(string condition);
-        void parseLine(string line);
-        vector<BaseballCard*> loadedCards;
+private:
+    BaseballCard::Condition parseCondition(string condition);
+    void parseLine(string line);
+    vector<BaseballCard*> loadedCards;
 
-    public:
-        //Creates a new instance of a FileReader.
-        //@precondition
-        //      none
-        //@postcondition
-        //      a new file reader is created
-        FileReader();
+public:
+    //Creates a new instance of a FileReader.
+    //@precondition
+    //      none
+    //@postcondition
+    //      a new file reader is created
+    FileReader();
 
-        //Destroys a FileReader to free memory.
-        virtual ~FileReader();
+    //Destroys a FileReader to free memory.
+    virtual ~FileReader();
 
-        //Loads a file of baseball cards into a collection of baseball objects.
-        //@precondition
-        //      file name cannot be empty
-        //@return
-        //      a list of baseball cards
-        //@para fileName
-        //      the file name
-        vector<BaseballCard*> loadFile(string fileName);
+    //Loads a file of baseball cards into a collection of baseball objects.
+    //@precondition
+    //      file name cannot be empty
+    //@return
+    //      a list of baseball cards
+    //@para fileName
+    //      the file name
+    vector<BaseballCard*> loadFile(string fileName);
 };
 
 }

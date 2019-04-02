@@ -51,9 +51,9 @@ string CardCollectionController::buildOutput(bool isAscending)
 void CardCollectionController::addCardsFromCollection(vector<BaseballCard*> cards)
 {
 
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Inside Controller Add All:" << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Inside Controller Add All:" << endl;
+#endif
 
     for (BaseballCard* currentCard : cards)
     {

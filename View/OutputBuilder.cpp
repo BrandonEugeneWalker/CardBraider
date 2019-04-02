@@ -8,42 +8,23 @@ namespace view
 
 OutputBuilder::OutputBuilder()
 {
-    this -> coutBuff = nullptr;
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Constructed OutputBuilder: " << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Constructed OutputBuilder: " << endl;
+#endif
 }
 
 OutputBuilder::~OutputBuilder()
 {
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Destroyed OutputBuilder: " << endl;
-    #endif
-}
-
-void OutputBuilder::changeOutputLocation()
-{
-    streambuf *psbuf, *backup;
-    ostringstream outputStream(this -> outputString, ios_base::out);
-
-    backup = cout.rdbuf();
-
-    psbuf = outputStream.rdbuf();
-    cout.rdbuf(psbuf);
-
-    this -> coutBuff = backup;
-}
-
-void OutputBuilder::returnOutputLocation()
-{
-    cout.rdbuf(this -> coutBuff);
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Destroyed OutputBuilder: " << endl;
+#endif
 }
 
 string OutputBuilder::buildOutput(bool isAscending, CardNode* head)
 {
     if (head == nullptr)
     {
-            return "The collection is empty.";
+        return "The collection is empty.";
     }
     //changeOutputLocation();
     buildByLastName(isAscending, head);
@@ -77,16 +58,16 @@ void OutputBuilder::buildCardDescription(CardNode* node)
     string firstName = node -> getFirstName();
     string lastName = node -> getLastName();
     BaseballCard::Condition condition = node -> getCondition();
-    int value = node -> getValue();
+    float value = node -> getValue();
     int year = node -> getYear();
-    string valueString = to_string(value);
+    string monetaryOutput = this -> buildMonetaryOutput(value);
     string fullName = firstName + " " + lastName;
     string conditionString = determineCondition(condition);
 
     outputStream << left << setw(20) << fullName;
     outputStream << left << setw(10) << year;
     outputStream << left << setw(10) << conditionString;
-    outputStream << right << setw(10) << "$" << std::put_money(valueString, false);
+    outputStream << right << setw(20) << monetaryOutput;
     outputStream << endl;
 
     string currentOutput = this -> outputString;
@@ -97,9 +78,9 @@ void OutputBuilder::buildCardDescription(CardNode* node)
 
 string OutputBuilder::determineCondition(BaseballCard::Condition condition)
 {
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Output Builder Given Condition: " << condition << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Output Builder Given Condition: " << condition << endl;
+#endif
 
     string returnString = "Unknown";
     if (condition == 0)
@@ -123,6 +104,19 @@ string OutputBuilder::determineCondition(BaseballCard::Condition condition)
         returnString = "Pristine";
     }
 
+    return returnString;
+}
+
+string OutputBuilder::buildMonetaryOutput(int value)
+{
+    string monetaryOutput = to_string(value);
+    int insertPosition = monetaryOutput.length() - 3;
+    while (insertPosition > 0)
+    {
+        monetaryOutput.insert(insertPosition, ",");
+        insertPosition -= 3;
+    }
+    string returnString = "$" + monetaryOutput + ".00";
     return returnString;
 }
 

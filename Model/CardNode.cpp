@@ -19,9 +19,9 @@ CardNode::CardNode(BaseballCard* nodeCard)
     this -> nextName = nullptr;
     this -> nextYear = nullptr;
     this -> nextCondition = nullptr;
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Constructed Node: " << this -> debugDescription() << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Constructed Node: " << this -> debugDescription() << endl;
+#endif
 }
 
 CardNode::~CardNode()
@@ -30,9 +30,9 @@ CardNode::~CardNode()
     this -> nextName = nullptr;
     this -> nextYear = nullptr;
     this -> nextCondition = nullptr;
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Destroyed Node: " << this -> debugDescription() << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Destroyed Node: " << this -> debugDescription() << endl;
+#endif
 }
 
 string CardNode::getFirstName() const

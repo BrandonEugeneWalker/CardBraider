@@ -11,16 +11,16 @@ namespace io
 
 FileReader::FileReader()
 {
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "FileReader Constructor:" << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "FileReader Constructor:" << endl;
+#endif
 }
 
 FileReader::~FileReader()
 {
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "FileReader Destructor:" << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "FileReader Destructor:" << endl;
+#endif
 }
 
 vector<BaseballCard*> FileReader::loadFile(string fileName)
@@ -46,9 +46,9 @@ BaseballCard::Condition FileReader::parseCondition(string condition)
 {
     string upperCondition = UTILS_H::toUpperCase(condition);
 
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Current Condition To Parse: " << upperCondition << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Current Condition To Parse: " << upperCondition << endl;
+#endif
 
     BaseballCard::Condition parsedCondition = BaseballCard::Condition::UNKNOWN;
     if (upperCondition == "POOR")
@@ -71,9 +71,9 @@ BaseballCard::Condition FileReader::parseCondition(string condition)
     {
         parsedCondition = BaseballCard::Condition::PRISTINE;
     }
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Current Parsed Condition: " << parsedCondition << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Current Parsed Condition: " << parsedCondition << endl;
+#endif
     return parsedCondition;
 }
 
@@ -99,9 +99,9 @@ void FileReader::parseLine(string line)
     int year = UTILS_H::toInt(cardVariables[2], errorMessage);
     //int intCondition = parseCondition(cardVariables[3]);
     BaseballCard::Condition condition = parseCondition(cardVariables[3]);
-    #ifdef DIAGNOSTIC_OUTPUT
-        cout << "Condition Being Added To Card: " << condition << endl;
-    #endif
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Condition Being Added To Card: " << condition << endl;
+#endif
     int value = UTILS_H::toInt(cardVariables[4], errorMessage);
 
     BaseballCard* cardToAdd = new BaseballCard(firstName, lastName, year, condition, value);
