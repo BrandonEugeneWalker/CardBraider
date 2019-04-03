@@ -18,7 +18,7 @@ private:
 
     void deconstructNode(CardNode* currentNode);
 
-    void addByNameBraid(CardNode* currentNode, CardNode* nodeToAdd);
+    void addByNameBraid(CardNode* nodeToAdd);
 
 public:
     // Creates a new instance of a CardBraider.

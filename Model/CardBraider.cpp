@@ -55,40 +55,53 @@ void CardBraider::addNode(CardNode* node)
     }
     else
     {
-        addByNameBraid(this -> head, node);
+        addByNameBraid(node);
     }
 }
 
-void CardBraider::addByNameBraid(CardNode* currentNode, CardNode* nodeToAdd)
+void CardBraider::addByNameBraid(CardNode* nodeToAdd)
 {
-    if (currentNode == nullptr)
-    {
-        nodeToAdd -> setNextName(this -> head);
-        this -> head = nodeToAdd;
-        return;
-    }
     if (nodeToAdd == nullptr)
     {
         return;
     }
-
-#ifdef DIAGNOSTIC_OUTPUT
-    cout << "Added Node By Name: " << nodeToAdd -> debugDescription() << endl;
-#endif
-
-    string givenString = nodeToAdd -> getLastName();
-    string currentString = currentNode -> getLastName();
-
-    if (givenString < currentString)
+    CardNode* nextNode = this -> head;
+    CardNode* previousNode = nullptr;
+    //Candidate node possibly?
+    while(nextNode != nullptr)
     {
-        this -> addByNameBraid(currentNode -> getNextName(), nodeToAdd);
+        string givenString = nodeToAdd -> getLastName();
+        string currentString = nextNode -> getLastName();
+        if (givenString < currentString)
+        {
+            if (previousNode != nullptr)
+            {
+                previousNode -> setNextName(nodeToAdd);
+                nodeToAdd -> setNextName(nextNode);
+                return;
+            }
+            else
+            {
+                nodeToAdd -> setNextName(nextNode);
+                this -> head = nodeToAdd;
+                return;
+            }
+        }
+        else
+        {
+            previousNode = nextNode;
+            nextNode = nextNode -> getNextName();
+        }
     }
-    else
+    if (previousNode != nullptr)
     {
-        nodeToAdd -> setNextName(currentNode -> getNextName());
-        currentNode -> setNextName(nodeToAdd);
+       previousNode -> setNextName(nodeToAdd);
     }
+
+
+
 }
+
 
 void CardBraider::deleteNode(string name, CardNode* currentNode, CardNode* previousNode)
 {
