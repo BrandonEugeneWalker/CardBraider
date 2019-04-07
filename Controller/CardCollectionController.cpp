@@ -40,12 +40,43 @@ void CardCollectionController::deleteCard(string name)
     this -> braidedCardList -> deleteNode(name, nullptr, nullptr);
 }
 
-string CardCollectionController::buildOutput(bool isAscending)
+string CardCollectionController::buildOutput(int order)
 {
     OutputBuilder newBuilder;
-    CardNode* headNode = this -> braidedCardList -> getHead();
-    string results = newBuilder.buildOutput(isAscending, headNode);
+    CardNode* headNode;
+    string results;
+    if (order == 0)
+    {
+        headNode = this -> braidedCardList -> getNameHead();
+        results = newBuilder.buildOutput(true, OutputBuilder::SortType::NAME, headNode);
+    }
+    else if(order == 1)
+    {
+        headNode = this -> braidedCardList -> getNameHead();
+        results = newBuilder.buildOutput(false, OutputBuilder::SortType::NAME, headNode);
+    }
+    else if(order == 2)
+    {
+        headNode = this -> braidedCardList -> getYearHead();
+        results = newBuilder.buildOutput(true, OutputBuilder::SortType::YEAR, headNode);
+    }
+    else if(order == 3)
+    {
+        headNode = this -> braidedCardList -> getYearHead();
+        results = newBuilder.buildOutput(false, OutputBuilder::SortType::YEAR, headNode);
+    }
+    else if(order == 4)
+    {
+        headNode = this -> braidedCardList -> getConditionHead();
+        results = newBuilder.buildOutput(true, OutputBuilder::SortType::CONDITION, headNode);
+    }
+    else if(order == 5)
+    {
+        headNode = this -> braidedCardList -> getConditionHead();
+        results = newBuilder.buildOutput(false, OutputBuilder::SortType::CONDITION, headNode);
+    }
     return results;
+
 }
 
 void CardCollectionController::addCardsFromCollection(vector<BaseballCard*> cards)

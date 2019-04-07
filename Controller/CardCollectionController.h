@@ -65,7 +65,7 @@ public:
     //      a string formatted properly for output.
     //@para isAscending
     //      true if ascending, false is descending
-    string buildOutput(bool isAscending);
+    string buildOutput(int order);
 
     //Adds all cards in the list to the braid.
     //@precondition

@@ -390,19 +390,7 @@ void BaseballCardCollectionWindow::updateOutput()
 {
     BaseballCardCollectionWindow::SortOrder order = this -> sortOrderSelection;
     string newOutput;
-    if (order == 0)
-    {
-        newOutput = this -> controller.buildOutput(true);
-    }
-    else if (order == 1)
-    {
-        newOutput = this -> controller.buildOutput(false);
-    }
-    else
-    {
-        newOutput = "Not yet implemented.";
-    }
-
+    newOutput = this -> controller.buildOutput(order);
     this -> setSummaryText(newOutput);
 }
 

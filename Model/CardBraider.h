@@ -14,11 +14,24 @@ namespace model
 class CardBraider
 {
 private:
-    CardNode* head;
+    CardNode* nameHead;
+    CardNode* yearHead;
+    CardNode* conditionHead;
 
     void deconstructNode(CardNode* currentNode);
 
+    bool compareByLastName(CardNode* firstNode, CardNode* secondNode);
+
+    bool compareByYear(CardNode* firstNode, CardNode* secondNode);
+
+    bool compareByCondition(CardNode* firstNode, CardNode* secondNode);
+
     void addByNameBraid(CardNode* nodeToAdd);
+
+    void addByYearBraid(CardNode* nodeToAdd);
+
+    void addByConditionBraid(CardNode* nodeToAdd);
+
 
 public:
     // Creates a new instance of a CardBraider.
@@ -49,12 +62,26 @@ public:
     //      the name to delete by
     void deleteNode(string name, CardNode* currentNode, CardNode* previousNode);
 
-    //Gets and returns the pointer to the head.
+    //Gets and returns the pointer to the name head.
     //@precondition
     //      none
     //@return
     //      the pointer if it exists, nullptr otherwise
-    CardNode* getHead();
+    CardNode* getNameHead();
+
+    //Gets and returns the pointer to the year head.
+    //@precondition
+    //      none
+    //@return
+    //      the pointer if it exists, nullptr otherwise
+    CardNode* getYearHead();
+
+    //Gets and returns the pointer to the condition head.
+    //@precondition
+    //      none
+    //@return
+    //      the pointer if it exists, nullptr otherwise
+    CardNode* getConditionHead();
 
 };
 

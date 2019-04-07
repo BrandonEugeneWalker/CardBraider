@@ -20,15 +20,25 @@ OutputBuilder::~OutputBuilder()
 #endif
 }
 
-string OutputBuilder::buildOutput(bool isAscending, CardNode* head)
+string OutputBuilder::buildOutput(bool isAscending, SortType sortType, CardNode* head)
 {
     if (head == nullptr)
     {
-        return "The collection is empty.";
+            return "The collection is empty.";
+        }
+    if (sortType == SortType::NAME)
+    {
+        this -> buildByLastName(isAscending, head);
     }
-    //changeOutputLocation();
-    buildByLastName(isAscending, head);
-    //returnOutputLocation();
+    else if (sortType == SortType::YEAR)
+    {
+        this -> buildByYear(isAscending, head);
+    }
+    else if (sortType == SortType::CONDITION)
+    {
+        this -> buildByCondition(isAscending, head);
+    }
+
     return this -> outputString;
 
 }
@@ -47,6 +57,42 @@ void OutputBuilder::buildByLastName(bool isAscending, CardNode* node)
     else
     {
         buildByLastName(isAscending, node -> getNextName());
+        buildCardDescription(node);
+    }
+}
+
+void OutputBuilder::buildByYear(bool isAscending, CardNode* node)
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+    if (isAscending)
+    {
+        buildCardDescription(node);
+        buildByYear(isAscending, node -> getNextYear());
+    }
+    else
+    {
+        buildByYear(isAscending, node -> getNextYear());
+        buildCardDescription(node);
+    }
+}
+
+void OutputBuilder::buildByCondition(bool isAscending, CardNode* node)
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+    if (isAscending)
+    {
+        buildCardDescription(node);
+        buildByCondition(isAscending, node -> getNextCondition());
+    }
+    else
+    {
+        buildByCondition(isAscending, node -> getNextCondition());
         buildCardDescription(node);
     }
 }
@@ -83,23 +129,23 @@ string OutputBuilder::determineCondition(BaseballCard::Condition condition)
 #endif
 
     string returnString = "Unknown";
-    if (condition == 0)
+    if (condition == BaseballCard::Condition::POOR)
     {
         returnString = "Poor";
     }
-    else if (condition == 1)
+    else if (condition == BaseballCard::Condition::GOOD)
     {
         returnString = "Good";
     }
-    else if (condition == 2)
+    else if (condition == BaseballCard::Condition::EXCELLENT)
     {
         returnString = "Excellent";
     }
-    else if (condition == 3)
+    else if (condition == BaseballCard::Condition::MINT)
     {
         returnString = "Mint";
     }
-    else if (condition == 4)
+    else if (condition == BaseballCard::Condition::PRISTINE)
     {
         returnString = "Pristine";
     }
