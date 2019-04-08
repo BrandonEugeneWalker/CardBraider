@@ -37,12 +37,12 @@ void CardCollectionController::addCard(BaseballCard* card)
     this -> braidedCardList -> addNode(newNode);
 }
 
-void CardCollectionController::deleteCard(string name)
+bool CardCollectionController::deleteCard(string name)
 {
 #ifdef DIAGNOSTIC_OUTPUT
     cout << "Inside Controller deleteCard." << endl;
 #endif // DIAGNOSTIC_OUTPUT
-    this -> braidedCardList -> deleteNode(name);
+    return this -> braidedCardList -> deleteNode(name);
 }
 
 string CardCollectionController::buildOutput(int order)
@@ -110,6 +110,12 @@ void CardCollectionController::resetBraidedList()
 #endif // DIAGNOSTIC_OUTPUT
     delete this -> braidedCardList;
     this -> braidedCardList = new CardBraider();
+}
+
+void CardCollectionController::saveBraidedList(string fileName)
+{
+    FileWriter fileWriter;
+    fileWriter.writeNodesToFile(this -> braidedCardList -> getNameHead(), fileName);
 }
 
 

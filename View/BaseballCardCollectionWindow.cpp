@@ -158,7 +158,7 @@ void BaseballCardCollectionWindow::cbLoad(Fl_Widget* widget, void* data)
     }
     else
     {
-        window -> setSummaryText("A file was not selected.");
+        fl_message("%s", "A file was not selected.");
     }
 
 
@@ -227,6 +227,8 @@ void BaseballCardCollectionWindow::cbSave(Fl_Widget* widget, void* data)
 {
     BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data;
     window->promptUserForFilename(Fl_File_Chooser::CREATE, "Card file to save to");
+
+    window -> controller.saveBraidedList(window -> getFilename());
 
 #ifdef DIAGNOSTIC_OUTPUT
     cout << "Filename selected: " << window->getFilename() << endl;
@@ -306,10 +308,20 @@ void BaseballCardCollectionWindow::cbDeleteCard(Fl_Widget* widget, void* data)
         Fl::wait();
     }
 
+    bool results = false;
     if (deleteCard.getWindowResult() == OKCancelWindow::WindowResult::OK)
     {
-        window -> controller.deleteCard(deleteCard.getLastName());
+        results = window -> controller.deleteCard(deleteCard.getLastName());
         window -> updateOutput();
+    }
+    else
+    {
+        fl_message("%s", "No file was selected.");
+    }
+
+    if (!results)
+    {
+        fl_message("%s", "There was no card to remove by that name.");
     }
 
 

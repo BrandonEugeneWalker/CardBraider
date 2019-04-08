@@ -8,11 +8,14 @@ using namespace std;
 #include "BaseballCard.h"
 #include "CardNode.h"
 #include "CardBraider.h"
-#include "FileReader.h"
 using namespace model;
 
 #include "OutputBuilder.h"
 using namespace view;
+
+#include "FileReader.h"
+#include "FileWriter.h"
+using namespace io;
 
 namespace controller
 {
@@ -56,7 +59,7 @@ public:
     //      tall cards matching the name are deleted
     //@para name
     //      the name to delete by
-    void deleteCard(string name);
+    bool deleteCard(string name);
 
     //Builds and returns the output for the collection window.
     //@precondition
@@ -82,6 +85,8 @@ public:
     //@postcondition
     //      the old list is deleted and a new one is created
     void resetBraidedList();
+
+    void saveBraidedList(string fileName);
 };
 
 }

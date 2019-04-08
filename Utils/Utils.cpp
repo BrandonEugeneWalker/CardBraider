@@ -44,3 +44,30 @@ int toInt(const string& text, const char* errorMessage)
     return value;
 
 }
+
+string enumToString(BaseballCard::Condition condition)
+{
+    string returnString = "Unknown";
+    if (condition == BaseballCard::Condition::POOR)
+    {
+        returnString = "Poor";
+    }
+    else if (condition == BaseballCard::Condition::GOOD)
+    {
+        returnString = "Good";
+    }
+    else if (condition == BaseballCard::Condition::EXCELLENT)
+    {
+        returnString = "Excellent";
+    }
+    else if (condition == BaseballCard::Condition::MINT)
+    {
+        returnString = "Mint";
+    }
+    else if (condition == BaseballCard::Condition::PRISTINE)
+    {
+        returnString = "Pristine";
+    }
+
+    return returnString;
+}

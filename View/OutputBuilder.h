@@ -26,7 +26,6 @@ private:
     void buildByYear(bool isAscending, CardNode* node);
     void buildByCondition(bool isAscending, CardNode* node);
     void buildCardDescription(CardNode* node);
-    string determineCondition(BaseballCard::Condition condition);
     string buildMonetaryOutput(int value);
 
 public:

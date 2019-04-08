@@ -108,7 +108,7 @@ void OutputBuilder::buildCardDescription(CardNode* node)
     int year = node -> getYear();
     string monetaryOutput = this -> buildMonetaryOutput(value);
     string fullName = firstName + " " + lastName;
-    string conditionString = determineCondition(condition);
+    string conditionString = UTILS_H::enumToString(condition);
 
     outputStream << left << setw(20) << fullName;
     outputStream << left << setw(10) << year;
@@ -120,37 +120,6 @@ void OutputBuilder::buildCardDescription(CardNode* node)
     string results = outputStream.str();
     string newOutput = currentOutput + results;
     this -> outputString = newOutput;
-}
-
-string OutputBuilder::determineCondition(BaseballCard::Condition condition)
-{
-#ifdef DIAGNOSTIC_OUTPUT
-    cout << "Output Builder Given Condition: " << condition << endl;
-#endif
-
-    string returnString = "Unknown";
-    if (condition == BaseballCard::Condition::POOR)
-    {
-        returnString = "Poor";
-    }
-    else if (condition == BaseballCard::Condition::GOOD)
-    {
-        returnString = "Good";
-    }
-    else if (condition == BaseballCard::Condition::EXCELLENT)
-    {
-        returnString = "Excellent";
-    }
-    else if (condition == BaseballCard::Condition::MINT)
-    {
-        returnString = "Mint";
-    }
-    else if (condition == BaseballCard::Condition::PRISTINE)
-    {
-        returnString = "Pristine";
-    }
-
-    return returnString;
 }
 
 string OutputBuilder::buildMonetaryOutput(int value)

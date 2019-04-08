@@ -71,7 +71,7 @@ public:
     //      the node(s) are deleted
     //@para name
     //      the name to delete by
-    void deleteNode(string name);
+    bool deleteNode(string name);
 
     //Gets and returns the pointer to the name head.
     //@precondition
