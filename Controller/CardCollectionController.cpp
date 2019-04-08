@@ -26,6 +26,9 @@ CardBraider* CardCollectionController::getCardBraider()
 
 void CardCollectionController::addCard(BaseballCard* card)
 {
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Inside Controller addCard." << endl;
+#endif // DIAGNOSTIC_OUTPUT
     if (card == nullptr)
     {
         throw invalid_argument("the card cannot be nullptr");
@@ -36,12 +39,17 @@ void CardCollectionController::addCard(BaseballCard* card)
 
 void CardCollectionController::deleteCard(string name)
 {
-
-    this -> braidedCardList -> deleteNode(name, nullptr, nullptr);
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Inside Controller deleteCard." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+    this -> braidedCardList -> deleteNode(name);
 }
 
 string CardCollectionController::buildOutput(int order)
 {
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Inside Controller buildOutput." << endl;
+#endif // DIAGNOSTIC_OUTPUT
     OutputBuilder newBuilder;
     CardNode* headNode;
     string results;
@@ -97,6 +105,9 @@ void CardCollectionController::addCardsFromCollection(vector<BaseballCard*> card
 
 void CardCollectionController::resetBraidedList()
 {
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Inside Controller resetBraidedList." << endl;
+#endif // DIAGNOSTIC_OUTPUT
     delete this -> braidedCardList;
     this -> braidedCardList = new CardBraider();
 }

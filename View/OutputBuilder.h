@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <locale>
 using namespace std;
 
 #include "CardBraider.h"

@@ -24,8 +24,8 @@ string OutputBuilder::buildOutput(bool isAscending, SortType sortType, CardNode*
 {
     if (head == nullptr)
     {
-            return "The collection is empty.";
-        }
+        return "The collection is empty.";
+    }
     if (sortType == SortType::NAME)
     {
         this -> buildByLastName(isAscending, head);
@@ -155,15 +155,11 @@ string OutputBuilder::determineCondition(BaseballCard::Condition condition)
 
 string OutputBuilder::buildMonetaryOutput(int value)
 {
-    string monetaryOutput = to_string(value);
-    int insertPosition = monetaryOutput.length() - 3;
-    while (insertPosition > 0)
-    {
-        monetaryOutput.insert(insertPosition, ",");
-        insertPosition -= 3;
-    }
-    string returnString = "$" + monetaryOutput + ".00";
-    return returnString;
+    stringstream moneytaryStream;
+    locale mylocale("");
+    moneytaryStream.imbue(mylocale);
+    moneytaryStream << "$" << put_money(value * 100);
+    return moneytaryStream.str();
 }
 
 }

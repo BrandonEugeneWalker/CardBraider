@@ -11,9 +11,7 @@ namespace model
 
 CardBraider::CardBraider()
 {
-    this -> nameHead = nullptr;
-    this -> yearHead = nullptr;
-    this -> conditionHead = nullptr;
+    this -> setHeadsToNullptr();
 
 #ifdef DIAGNOSTIC_OUTPUT
     cout << "Constructed Braider: " << endl;
@@ -27,6 +25,7 @@ CardBraider::~CardBraider()
         return;
     }
     deconstructNode(this -> nameHead);
+    this -> setHeadsToNullptr();
 #ifdef DIAGNOSTIC_OUTPUT
     cout << "Destroyed Braider: " << endl;
 #endif
@@ -54,13 +53,7 @@ void CardBraider::addNode(CardNode* node)
     if (this -> nameHead == nullptr)
     {
         this -> nameHead = node;
-    }
-    else if(this -> yearHead == nullptr)
-    {
         this -> yearHead = node;
-    }
-    else if(this -> conditionHead == nullptr)
-    {
         this -> conditionHead = node;
     }
     else
@@ -103,16 +96,24 @@ void CardBraider::addByNameBraid(CardNode* nodeToAdd)
 
     while(nextNode != nullptr)
     {
+        //string nodeToAddName = UTILS_H::toUpperCase(nodeToAdd -> getLastName());
+        //string nextNodeName = UTILS_H::toUpperCase(nodeToAdd -> getLastName());
         if (this -> compareByLastName(nodeToAdd, nextNode))
         {
             if (previousNode != nullptr)
             {
+#ifdef DIAGNOSTIC_OUTPUT
+                cout << "Added " << nodeToAdd -> getLastName() << " to " << previousNode -> getLastName() << endl;
+#endif // DIAGNOSTIC_OUTPUT
                 previousNode -> setNextName(nodeToAdd);
                 nodeToAdd -> setNextName(nextNode);
                 return;
             }
             else
             {
+#ifdef DIAGNOSTIC_OUTPUT
+                cout << "Set " << nodeToAdd -> getLastName() << " as the head node." << endl;
+#endif // DIAGNOSTIC_OUTPUT
                 nodeToAdd -> setNextName(nextNode);
                 this -> nameHead = nodeToAdd;
                 return;
@@ -126,6 +127,9 @@ void CardBraider::addByNameBraid(CardNode* nodeToAdd)
     }
     if (previousNode != nullptr)
     {
+#ifdef DIAGNOSTIC_OUTPUT
+        cout << "Added " << nodeToAdd -> getLastName() << " as braid end to" << previousNode -> getLastName() << endl;
+#endif // DIAGNOSTIC_OUTPUT
         previousNode -> setNextName(nodeToAdd);
     }
 }
@@ -244,36 +248,225 @@ void CardBraider::addByConditionBraid(CardNode* nodeToAdd)
 }
 
 
-void CardBraider::deleteNode(string name, CardNode* currentNode, CardNode* previousNode)
+void CardBraider::deleteNode(string name)
 {
     if (this -> nameHead == nullptr)
     {
         return;
     }
-    if (currentNode == nullptr)
-    {
-        currentNode = this -> nameHead;
-    }
 
-    string currentName = currentNode -> getLastName();
-    string currentNameToUpper = UTILS_H::toUpperCase(currentName);
-    string givenToUpper = UTILS_H::toUpperCase(name);
-    CardNode* nextNode = currentNode -> getNextName();
-    deleteNode(name, nextNode, currentNode);
-    if (currentNameToUpper == givenToUpper)
+    vector<CardNode*> nodesToDelete = this -> findNodesToRemoveByName(name);
+#ifdef DIAGNOSTIC_OUTPUT
+    cout << "Inside deleteNode size of vector of nodes to remove: " << nodesToDelete.size() << endl;
+#endif // DIAGNOSTIC_OUTPUT
+
+    while(nodesToDelete.size() != 0)
     {
-        if (previousNode == nullptr)
+        CardNode* currentNode = nodesToDelete.back();
+        this -> removeNodeToDeleteFromNameBraid(currentNode);
+        this -> removeNodeToDeleteFromYearBraid(currentNode);
+        this -> removeNodeToDeleteFromConditionBraid(currentNode);
+        nodesToDelete.pop_back();
+        //delete currentNode;
+    }
+}
+
+vector<CardNode*> CardBraider::findNodesToRemoveByName(string name)
+{
+    vector<CardNode*> returnVector;
+    CardNode* currentNode = this -> nameHead;
+
+    string nameToUpper = UTILS_H::toUpperCase(name);
+
+    while(currentNode != nullptr)
+    {
+        string currentName = currentNode -> getLastName();
+        string currentNameToUpper = UTILS_H::toUpperCase(currentName);
+        if (currentNameToUpper == nameToUpper)
         {
-            this -> nameHead = nextNode;
-            delete currentNode;
+#ifdef DIAGNOSTIC_OUTPUT
+            cout << "Current: " << currentNameToUpper << " == " << nameToUpper << endl;
+#endif
+            returnVector.push_back(currentNode);
         }
         else
         {
-            previousNode -> setNextName(nextNode);
-            delete currentNode;
+#ifdef DIAGNOSTIC_OUTPUT
+            cout << "Current: " << currentNameToUpper << " != " << nameToUpper << endl;
+#endif
         }
+
+        currentNode = currentNode -> getNextName();
+    }
+    return returnVector;
+
+}
+
+void CardBraider::removeNodeToDeleteFromNameBraid(CardNode* node)
+{
+    CardNode* previousNode = nullptr;
+    CardNode* currentNode = this -> nameHead;
+    while(currentNode != nullptr)
+    {
+        CardNode* nextNode = currentNode -> getNextName();
+        if (node == currentNode)
+        {
+#ifdef DIAGNOSTIC_OUTPUT
+            cout << "NameDelete: The currentNode matched the node." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+            if (previousNode == nullptr)
+            {
+#ifdef DIAGNOSTIC_OUTPUT
+                cout << "NameDelete: The previous node was nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                if (nextNode != nullptr)
+                {
+#ifdef DIAGNOSTIC_OUTPUT
+                    cout << "NameDelete: The next node was not nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                    this -> nameHead = nextNode;
+                }
+                else
+                {
+#ifdef DIAGNOSTIC_OUTPUT
+                    cout << "NameDelete: The next node was nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                    this -> nameHead = nullptr;
+                }
+            }
+            else
+            {
+#ifdef DIAGNOSTIC_OUTPUT
+                cout << "NameDelete: The previous node was not nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                if (nextNode != nullptr)
+                {
+                    previousNode -> setNextName(nextNode);
+                }
+                else
+                {
+                    previousNode -> setNextName(nullptr);
+                }
+            }
+        }
+#ifdef DIAGNOSTIC_OUTPUT
+        cout << "NameDelete: The currentNode did not match the node." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+        previousNode = currentNode;
+        currentNode = nextNode;
     }
 }
+
+void CardBraider::removeNodeToDeleteFromYearBraid(CardNode* node)
+{
+    CardNode* previousNode = nullptr;
+    CardNode* currentNode = this -> yearHead;
+    while(currentNode != nullptr)
+    {
+        CardNode* nextNode = currentNode -> getNextYear();
+        if (node == currentNode)
+        {
+#ifdef DIAGNOSTIC_OUTPUT
+            cout << "YearDelete: The currentNode matched the node." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+            if (previousNode == nullptr)
+            {
+#ifdef DIAGNOSTIC_OUTPUT
+                cout << "YearDelete: The previous node was nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                if (nextNode != nullptr)
+                {
+#ifdef DIAGNOSTIC_OUTPUT
+                    cout << "YearDelete: The next node was not nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                    this -> yearHead = nextNode;
+                }
+                else
+                {
+#ifdef DIAGNOSTIC_OUTPUT
+                    cout << "YearDelete: The next node was nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                    this -> yearHead = nullptr;
+                }
+            }
+            else
+            {
+#ifdef DIAGNOSTIC_OUTPUT
+                cout << "YearDelete: The previous node was not nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                if (nextNode != nullptr)
+                {
+                    previousNode -> setNextYear(nextNode);
+                }
+                else
+                {
+                    previousNode -> setNextYear(nullptr);
+                }
+            }
+        }
+#ifdef DIAGNOSTIC_OUTPUT
+        cout << "YearDelete: The currentNode did not match the node." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+        previousNode = currentNode;
+        currentNode = nextNode;
+    }
+}
+
+void CardBraider::removeNodeToDeleteFromConditionBraid(CardNode* node)
+{
+    CardNode* previousNode = nullptr;
+    CardNode* currentNode = this -> conditionHead;
+    while(currentNode != nullptr)
+    {
+        CardNode* nextNode = currentNode -> getNextCondition();
+        if (node == currentNode)
+        {
+#ifdef DIAGNOSTIC_OUTPUT
+            cout << "ConditionDelete: The currentNode matched the node." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+            if (previousNode == nullptr)
+            {
+#ifdef DIAGNOSTIC_OUTPUT
+                cout << "ConditionDelete: The previous node was nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                if (nextNode != nullptr)
+                {
+#ifdef DIAGNOSTIC_OUTPUT
+                    cout << "ConditionDelete: The next node was not nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                    this -> conditionHead = nextNode;
+                }
+                else
+                {
+#ifdef DIAGNOSTIC_OUTPUT
+                    cout << "ConditionDelete: The next node was nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                    this -> conditionHead = nullptr;
+                }
+            }
+            else
+            {
+#ifdef DIAGNOSTIC_OUTPUT
+                cout << "ConditionDelete: The previous node was not nullptr." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+                if (nextNode != nullptr)
+                {
+                    previousNode -> setNextCondition(nextNode);
+                }
+                else
+                {
+                    previousNode -> setNextCondition(nullptr);
+                }
+            }
+        }
+#ifdef DIAGNOSTIC_OUTPUT
+        cout << "ConditionDelete: The currentNode did not match the node." << endl;
+#endif // DIAGNOSTIC_OUTPUT
+        previousNode = currentNode;
+        currentNode = nextNode;
+    }
+}
+
 
 CardNode* CardBraider::getNameHead()
 {
@@ -288,6 +481,13 @@ CardNode* CardBraider::getYearHead()
 CardNode* CardBraider::getConditionHead()
 {
     return this -> conditionHead;
+}
+
+void CardBraider::setHeadsToNullptr()
+{
+    this -> nameHead = nullptr;
+    this -> yearHead = nullptr;
+    this -> conditionHead = nullptr;
 }
 
 }

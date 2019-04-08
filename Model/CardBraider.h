@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #include "CardNode.h"
@@ -32,6 +33,16 @@ private:
 
     void addByConditionBraid(CardNode* nodeToAdd);
 
+    void setHeadsToNullptr();
+
+    vector<CardNode*> findNodesToRemoveByName(string name);
+
+    void removeNodeToDeleteFromNameBraid(CardNode* node);
+
+    void removeNodeToDeleteFromYearBraid(CardNode* node);
+
+    void removeNodeToDeleteFromConditionBraid(CardNode* node);
+
 
 public:
     // Creates a new instance of a CardBraider.
@@ -60,7 +71,7 @@ public:
     //      the node(s) are deleted
     //@para name
     //      the name to delete by
-    void deleteNode(string name, CardNode* currentNode, CardNode* previousNode);
+    void deleteNode(string name);
 
     //Gets and returns the pointer to the name head.
     //@precondition

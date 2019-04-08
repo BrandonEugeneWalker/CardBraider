@@ -62,7 +62,7 @@ int CardNode::getValue() const
 
 CardNode* CardNode::getNextName()
 {
-        return this -> nextName;
+    return this -> nextName;
 }
 
 CardNode* CardNode::getNextYear()

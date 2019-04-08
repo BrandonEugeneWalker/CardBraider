@@ -306,6 +306,13 @@ void BaseballCardCollectionWindow::cbDeleteCard(Fl_Widget* widget, void* data)
         Fl::wait();
     }
 
+    if (deleteCard.getWindowResult() == OKCancelWindow::WindowResult::OK)
+    {
+        window -> controller.deleteCard(deleteCard.getLastName());
+        window -> updateOutput();
+    }
+
+
 #ifdef DIAGNOSTIC_OUTPUT
     if (deleteCard.getWindowResult() == OKCancelWindow::WindowResult::OK)
     {
