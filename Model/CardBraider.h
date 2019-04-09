@@ -22,31 +22,15 @@ private:
     CardNode* conditionHead;
 
     void deconstructNode(CardNode* currentNode);
-
     bool compareByLastName(CardNode* firstNode, CardNode* secondNode);
-
     bool compareByYear(CardNode* firstNode, CardNode* secondNode);
-
     bool compareByCondition(CardNode* firstNode, CardNode* secondNode);
-
     void setHeadsToNullptr();
-
     vector<CardNode*> findNodesToRemoveByName(string name);
-
     void insert(CardNode* nodeToAdd, BraidType type);
-
     bool yearEquals(CardNode* firstNode, CardNode* secondNode);
-
     bool conditionEquals(CardNode* firstNode, CardNode* secondNode);
-
-    void setNextNodeByType(CardNode* node, CardNode* nodeToSet, CardBraider::BraidType type);
-
-    CardNode* getBraidHeadByType(CardBraider::BraidType type);
-
-    void setBraidHeadByType(CardNode* nodeToSet, CardBraider::BraidType type);
-
     void remove(CardNode* node, BraidType type);
-
 
 public:
     // Creates a new instance of a CardBraider.
@@ -135,6 +119,39 @@ public:
     //@para type
     //      the type of braid to get the next node from
     static CardNode* getNextNodeByType(CardNode* node, CardBraider::BraidType type);
+
+    //Sets the next node depending on the given type.
+    //@precondition
+    //      none
+    //@postcondition
+    //      the next node is set
+    //@para node
+    //      the node whose next node is set
+    //@para nodeToSet
+    //      the node being set
+    //@para type
+    //      the braid type to set to
+    void setNextNodeByType(CardNode* node, CardNode* nodeToSet, CardBraider::BraidType type);
+
+    //Gets the head node of the given braid type.
+    //@precondition
+    //      none
+    //@return
+    //      the head node of the braid type
+    //@para type
+    //      the braid head to get
+    CardNode* getBraidHeadByType(CardBraider::BraidType type);
+
+    //Sets the head node depending on the given type.
+    //@precondition
+    //      none
+    //@postcondition
+    //      the head node is set
+    //@para nodeToSet
+    //      the node being set
+    //@para type
+    //      the braid type to set to
+    void setBraidHeadByType(CardNode* nodeToSet, CardBraider::BraidType type);
 
 };
 

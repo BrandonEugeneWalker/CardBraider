@@ -80,11 +80,11 @@ void OutputBuilder::buildCardDescription(CardNode* node)
 
 string OutputBuilder::buildMonetaryOutput(int value)
 {
-    stringstream moneytaryStream;
+    stringstream monetaryStream;
     locale mylocale("");
-    moneytaryStream.imbue(mylocale);
-    moneytaryStream << "$" << put_money(value * 100);
-    return moneytaryStream.str();
+    monetaryStream.imbue(mylocale);
+    monetaryStream << "$" << put_money(value * 100);
+    return monetaryStream.str();
 }
 
 }

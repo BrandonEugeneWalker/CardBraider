@@ -40,6 +40,8 @@ public:
     //      output based on the list
     //@para isAscending
     //      true if ascending, false if descending
+    //@para type
+    //      the braid type to build using
     //@para head
     //      the head node of the braided list
     string buildOutput(bool isAscending, CardBraider::BraidType type, CardNode* head);

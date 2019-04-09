@@ -32,6 +32,15 @@ public:
     //Destroys a FileWriter.
     virtual ~FileWriter();
 
+    //Writes the braided list to a file starting at the head node.
+    //@precondition
+    //      the filename cannot be empty
+    //@postcondition
+    //      the list is written to the file in a format that can be loaded back in
+    //@para head
+    //      the starting node
+    //@para fileName
+    //      the fileName/path to save to.
     void writeNodesToFile(CardNode* head, string fileName);
 
 };

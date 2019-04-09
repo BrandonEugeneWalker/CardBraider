@@ -26,7 +26,6 @@ private:
     CardBraider* braidedCardList;
 
 
-
 public:
     //Constructs a new CardCollectionController
     //@precondition
@@ -86,6 +85,13 @@ public:
     //      the old list is deleted and a new one is created
     void resetBraidedList();
 
+    //Saves the braided list to the given file name.
+    //@precondition
+    //      none
+    //@postcondition
+    //      the list is written to the file
+    //@para fileName
+    //      the fileName to save to
     void saveBraidedList(string fileName);
 };
 
