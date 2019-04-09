@@ -34,6 +34,8 @@
 		<Unit filename="Controller/CardCollectionController.h" />
 		<Unit filename="IO/FileReader.cpp" />
 		<Unit filename="IO/FileReader.h" />
+		<Unit filename="IO/FileWriter.cpp" />
+		<Unit filename="IO/FileWriter.h" />
 		<Unit filename="Model/BaseballCard.cpp" />
 		<Unit filename="Model/BaseballCard.h" />
 		<Unit filename="Model/CardBraider.cpp" />

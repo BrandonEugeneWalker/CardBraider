@@ -57,7 +57,7 @@ void AddBaseballCardWindow::okHandler()
     }
     catch (const char* message)
     {
-            fl_message("%s", message);
+        fl_message("%s", message);
     }
 
 

@@ -113,7 +113,7 @@ void OutputBuilder::buildCardDescription(CardNode* node)
     outputStream << left << setw(20) << fullName;
     outputStream << left << setw(10) << year;
     outputStream << left << setw(10) << conditionString;
-    outputStream << right << setw(20) << monetaryOutput;
+    outputStream << right << setw(18) << monetaryOutput;
     outputStream << endl;
 
     string currentOutput = this -> outputString;

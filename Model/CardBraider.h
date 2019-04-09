@@ -8,12 +8,14 @@ using namespace std;
 
 #include "CardNode.h"
 #include "Utils.h"
-
 namespace model
 {
 
 class CardBraider
 {
+public:
+    enum AddType {NAME, YEAR, CONDITION};
+
 private:
     CardNode* nameHead;
     CardNode* yearHead;
@@ -27,12 +29,6 @@ private:
 
     bool compareByCondition(CardNode* firstNode, CardNode* secondNode);
 
-    void addByNameBraid(CardNode* nodeToAdd);
-
-    void addByYearBraid(CardNode* nodeToAdd);
-
-    void addByConditionBraid(CardNode* nodeToAdd);
-
     void setHeadsToNullptr();
 
     vector<CardNode*> findNodesToRemoveByName(string name);
@@ -42,6 +38,20 @@ private:
     void removeNodeToDeleteFromYearBraid(CardNode* node);
 
     void removeNodeToDeleteFromConditionBraid(CardNode* node);
+
+    void insert(CardNode* nodeToAdd, AddType type);
+
+    bool yearEquals(CardNode* firstNode, CardNode* secondNode);
+
+    bool conditionEquals(CardNode* firstNode, CardNode* secondNode);
+
+    CardNode* getNextNodeByType(CardNode* node, CardBraider::AddType type);
+
+    void setNextNodeByType(CardNode* node, CardNode* nodeToSet, CardBraider::AddType type);
+
+    CardNode* getBraidHeadByType(CardBraider::AddType type);
+
+    void setBraidHeadByType(CardNode* nodeToSet, CardBraider::AddType type);
 
 
 public:
@@ -93,6 +103,33 @@ public:
     //@return
     //      the pointer if it exists, nullptr otherwise
     CardNode* getConditionHead();
+
+    //Sets the head of the name braid.
+    //@precondition
+    //      none
+    //@postcondition
+    //      the head is set
+    //@para node
+    //      the node to set as the head, can be nullptr
+    void setNameHead(CardNode* node);
+
+    //Sets the head of the year braid.
+    //@precondition
+    //      none
+    //@postcondition
+    //      the head is set
+    //@para node
+    //      the node to set as the head, can be nullptr
+    void setYearHead(CardNode* node);
+
+    //Sets the head of the condition braid.
+    //@precondition
+    //      none
+    //@postcondition
+    //      the head is set
+    //@para node
+    //      the node to set as the head, can be nullptr
+    void setConditionHead(CardNode* node);
 
 };
 
