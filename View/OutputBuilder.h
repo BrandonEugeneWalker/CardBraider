@@ -16,17 +16,11 @@ namespace view
 
 class OutputBuilder
 {
-public:
-    //The sorting type to use when building the output.
-    enum SortType {NAME, YEAR, CONDITION};
-
 private:
     string outputString;
-    void buildByLastName(bool isAscending, CardNode* node);
-    void buildByYear(bool isAscending, CardNode* node);
-    void buildByCondition(bool isAscending, CardNode* node);
     void buildCardDescription(CardNode* node);
     string buildMonetaryOutput(int value);
+    void buildByType(bool isAscending, CardNode* node, CardBraider::BraidType type);
 
 public:
     //Creates a new instance of a OutputBuilder.
@@ -48,7 +42,7 @@ public:
     //      true if ascending, false if descending
     //@para head
     //      the head node of the braided list
-    string buildOutput(bool isAscending, SortType sortType, CardNode* head);
+    string buildOutput(bool isAscending, CardBraider::BraidType type, CardNode* head);
 
 
 };

@@ -56,32 +56,32 @@ string CardCollectionController::buildOutput(int order)
     if (order == 0)
     {
         headNode = this -> braidedCardList -> getNameHead();
-        results = newBuilder.buildOutput(true, OutputBuilder::SortType::NAME, headNode);
+        results = newBuilder.buildOutput(true, CardBraider::BraidType::NAME, headNode);
     }
     else if(order == 1)
     {
         headNode = this -> braidedCardList -> getNameHead();
-        results = newBuilder.buildOutput(false, OutputBuilder::SortType::NAME, headNode);
+        results = newBuilder.buildOutput(false, CardBraider::BraidType::NAME, headNode);
     }
     else if(order == 2)
     {
         headNode = this -> braidedCardList -> getYearHead();
-        results = newBuilder.buildOutput(true, OutputBuilder::SortType::YEAR, headNode);
+        results = newBuilder.buildOutput(true, CardBraider::BraidType::YEAR, headNode);
     }
     else if(order == 3)
     {
         headNode = this -> braidedCardList -> getYearHead();
-        results = newBuilder.buildOutput(false, OutputBuilder::SortType::YEAR, headNode);
+        results = newBuilder.buildOutput(false, CardBraider::BraidType::YEAR, headNode);
     }
     else if(order == 4)
     {
         headNode = this -> braidedCardList -> getConditionHead();
-        results = newBuilder.buildOutput(true, OutputBuilder::SortType::CONDITION, headNode);
+        results = newBuilder.buildOutput(true, CardBraider::BraidType::CONDITION, headNode);
     }
     else if(order == 5)
     {
         headNode = this -> braidedCardList -> getConditionHead();
-        results = newBuilder.buildOutput(false, OutputBuilder::SortType::CONDITION, headNode);
+        results = newBuilder.buildOutput(false, CardBraider::BraidType::CONDITION, headNode);
     }
     return results;
 

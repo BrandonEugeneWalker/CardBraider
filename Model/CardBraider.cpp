@@ -58,9 +58,9 @@ void CardBraider::addNode(CardNode* node)
     }
     else
     {
-        this -> insert(node, AddType::NAME);
-        this -> insert(node, AddType::YEAR);
-        this -> insert(node, AddType::CONDITION);
+        this -> insert(node, BraidType::NAME);
+        this -> insert(node, BraidType::YEAR);
+        this -> insert(node, BraidType::CONDITION);
     }
 }
 
@@ -99,7 +99,7 @@ bool CardBraider::conditionEquals(CardNode* firstNode, CardNode* secondNode)
     return (firstCondition == secondCondition);
 }
 
-void CardBraider::insert(CardNode* nodeToAdd, AddType type)
+void CardBraider::insert(CardNode* nodeToAdd, BraidType type)
 {
     if (nodeToAdd == nullptr)
     {
@@ -112,16 +112,16 @@ void CardBraider::insert(CardNode* nodeToAdd, AddType type)
     bool (CardBraider::*baseComparator)(CardNode*, CardNode*);
     bool (CardBraider::*equalsComparator)(CardNode*, CardNode*);
 
-    if (type == CardBraider::AddType::NAME)
+    if (type == CardBraider::BraidType::NAME)
     {
         baseComparator = &CardBraider::compareByLastName;
     }
-    else if (type == CardBraider::AddType::YEAR)
+    else if (type == CardBraider::BraidType::YEAR)
     {
         baseComparator = &CardBraider::compareByYear;
         equalsComparator = &CardBraider::yearEquals;
     }
-    else if (type == CardBraider::AddType::CONDITION)
+    else if (type == CardBraider::BraidType::CONDITION)
     {
         baseComparator = &CardBraider::compareByCondition;
         equalsComparator = &CardBraider::conditionEquals;
@@ -144,7 +144,7 @@ void CardBraider::insert(CardNode* nodeToAdd, AddType type)
                 return;
             }
         }
-        else if (type != AddType::NAME)
+        else if (type != BraidType::NAME)
         {
             if ((this ->* equalsComparator)(nodeToAdd, nextNode))
             {
@@ -187,9 +187,12 @@ bool CardBraider::deleteNode(string name)
     while(nodesToDelete.size() != 0)
     {
         CardNode* currentNode = nodesToDelete.back();
-        this -> removeNodeToDeleteFromNameBraid(currentNode);
-        this -> removeNodeToDeleteFromYearBraid(currentNode);
-        this -> removeNodeToDeleteFromConditionBraid(currentNode);
+        //this -> removeNodeToDeleteFromNameBraid(currentNode);
+        //this -> removeNodeToDeleteFromYearBraid(currentNode);
+        //this -> removeNodeToDeleteFromConditionBraid(currentNode);
+        this -> remove(currentNode, BraidType::NAME);
+        this -> remove(currentNode, BraidType::YEAR);
+        this -> remove(currentNode, BraidType::CONDITION);
         nodesToDelete.pop_back();
         delete currentNode;
         results = true;
@@ -219,35 +222,35 @@ vector<CardNode*> CardBraider::findNodesToRemoveByName(string name)
 
 }
 
-void CardBraider::removeNodeToDeleteFromNameBraid(CardNode* node)
+void CardBraider::remove(CardNode* node, BraidType type)
 {
     CardNode* previousNode = nullptr;
-    CardNode* currentNode = this -> nameHead;
+    CardNode* currentNode = this -> getBraidHeadByType(type);
     while(currentNode != nullptr)
     {
-        CardNode* nextNode = currentNode -> getNextName();
+        CardNode* nextNode = this -> getNextNodeByType(currentNode, type);
         if (node == currentNode)
         {
             if (previousNode == nullptr)
             {
                 if (nextNode != nullptr)
                 {
-                    this -> nameHead = nextNode;
+                    this -> setNextNodeByType(this -> getBraidHeadByType(type), nextNode, type);
                 }
                 else
                 {
-                    this -> nameHead = nullptr;
+                    this -> setBraidHeadByType(nullptr, type);
                 }
             }
             else
             {
                 if (nextNode != nullptr)
                 {
-                    previousNode -> setNextName(nextNode);
+                    this -> setNextNodeByType(previousNode, nextNode, type);
                 }
                 else
                 {
-                    previousNode -> setNextName(nullptr);
+                    this -> setNextNodeByType(previousNode, nullptr, type);
                 }
             }
         }
@@ -255,81 +258,6 @@ void CardBraider::removeNodeToDeleteFromNameBraid(CardNode* node)
         currentNode = nextNode;
     }
 }
-
-void CardBraider::removeNodeToDeleteFromYearBraid(CardNode* node)
-{
-    CardNode* previousNode = nullptr;
-    CardNode* currentNode = this -> yearHead;
-    while(currentNode != nullptr)
-    {
-        CardNode* nextNode = currentNode -> getNextYear();
-        if (node == currentNode)
-        {
-            if (previousNode == nullptr)
-            {
-                if (nextNode != nullptr)
-                {
-                    this -> yearHead = nextNode;
-                }
-                else
-                {
-                    this -> yearHead = nullptr;
-                }
-            }
-            else
-            {
-                if (nextNode != nullptr)
-                {
-                    previousNode -> setNextYear(nextNode);
-                }
-                else
-                {
-                    previousNode -> setNextYear(nullptr);
-                }
-            }
-        }
-        previousNode = currentNode;
-        currentNode = nextNode;
-    }
-}
-
-void CardBraider::removeNodeToDeleteFromConditionBraid(CardNode* node)
-{
-    CardNode* previousNode = nullptr;
-    CardNode* currentNode = this -> conditionHead;
-    while(currentNode != nullptr)
-    {
-        CardNode* nextNode = currentNode -> getNextCondition();
-        if (node == currentNode)
-        {
-            if (previousNode == nullptr)
-            {
-                if (nextNode != nullptr)
-                {
-                    this -> conditionHead = nextNode;
-                }
-                else
-                {
-                    this -> conditionHead = nullptr;
-                }
-            }
-            else
-            {
-                if (nextNode != nullptr)
-                {
-                    previousNode -> setNextCondition(nextNode);
-                }
-                else
-                {
-                    previousNode -> setNextCondition(nullptr);
-                }
-            }
-        }
-        previousNode = currentNode;
-        currentNode = nextNode;
-    }
-}
-
 
 CardNode* CardBraider::getNameHead()
 {
@@ -368,69 +296,69 @@ void CardBraider::setHeadsToNullptr()
     this -> conditionHead = nullptr;
 }
 
-CardNode* CardBraider::getNextNodeByType(CardNode* node, CardBraider::AddType type)
+CardNode* CardBraider::getNextNodeByType(CardNode* node, CardBraider::BraidType type)
 {
     CardNode* returnNode = nullptr;
-    if (type == AddType::NAME)
+    if (type == BraidType::NAME)
     {
         returnNode = node -> getNextName();
     }
-    else if (type == AddType::YEAR)
+    else if (type == BraidType::YEAR)
     {
         returnNode = node -> getNextYear();
     }
-    else if (type == AddType::CONDITION)
+    else if (type == BraidType::CONDITION)
     {
         returnNode = node -> getNextCondition();
     }
     return returnNode;
 }
 
-void CardBraider::setNextNodeByType(CardNode* node, CardNode* nodeToSet, CardBraider::AddType type)
+void CardBraider::setNextNodeByType(CardNode* node, CardNode* nodeToSet, CardBraider::BraidType type)
 {
-    if (type == AddType::NAME)
+    if (type == BraidType::NAME)
     {
         node -> setNextName(nodeToSet);
     }
-    else if (type == AddType::YEAR)
+    else if (type == BraidType::YEAR)
     {
         node -> setNextYear(nodeToSet);
     }
-    else if (type == AddType::CONDITION)
+    else if (type == BraidType::CONDITION)
     {
         node -> setNextCondition(nodeToSet);
     }
 }
 
-CardNode* CardBraider::getBraidHeadByType(CardBraider::AddType type)
+CardNode* CardBraider::getBraidHeadByType(CardBraider::BraidType type)
 {
     CardNode* returnNode = nullptr;
-    if (type == AddType::NAME)
+    if (type == BraidType::NAME)
     {
         returnNode = this -> getNameHead();
     }
-    else if (type == AddType::YEAR)
+    else if (type == BraidType::YEAR)
     {
         returnNode = this -> getYearHead();
     }
-    else if (type == AddType::CONDITION)
+    else if (type == BraidType::CONDITION)
     {
         returnNode = this -> getConditionHead();
     }
     return returnNode;
 }
 
-void CardBraider::setBraidHeadByType(CardNode* nodeToSet, CardBraider::AddType type)
+void CardBraider::setBraidHeadByType(CardNode* nodeToSet, CardBraider::BraidType type)
 {
-    if (type == AddType::NAME)
+    if (type == BraidType::NAME)
     {
         this -> setNameHead(nodeToSet);
     }
-    else if (type == AddType::YEAR)
+    else if (type == BraidType::YEAR)
     {
         this -> setYearHead(nodeToSet);
     }
-    else if (type == AddType::CONDITION)
+    else if (type == BraidType::CONDITION)
     {
         this -> setConditionHead(nodeToSet);
     }

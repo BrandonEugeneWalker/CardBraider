@@ -14,7 +14,7 @@ namespace model
 class CardBraider
 {
 public:
-    enum AddType {NAME, YEAR, CONDITION};
+    enum BraidType {NAME, YEAR, CONDITION};
 
 private:
     CardNode* nameHead;
@@ -33,25 +33,19 @@ private:
 
     vector<CardNode*> findNodesToRemoveByName(string name);
 
-    void removeNodeToDeleteFromNameBraid(CardNode* node);
-
-    void removeNodeToDeleteFromYearBraid(CardNode* node);
-
-    void removeNodeToDeleteFromConditionBraid(CardNode* node);
-
-    void insert(CardNode* nodeToAdd, AddType type);
+    void insert(CardNode* nodeToAdd, BraidType type);
 
     bool yearEquals(CardNode* firstNode, CardNode* secondNode);
 
     bool conditionEquals(CardNode* firstNode, CardNode* secondNode);
 
-    CardNode* getNextNodeByType(CardNode* node, CardBraider::AddType type);
+    void setNextNodeByType(CardNode* node, CardNode* nodeToSet, CardBraider::BraidType type);
 
-    void setNextNodeByType(CardNode* node, CardNode* nodeToSet, CardBraider::AddType type);
+    CardNode* getBraidHeadByType(CardBraider::BraidType type);
 
-    CardNode* getBraidHeadByType(CardBraider::AddType type);
+    void setBraidHeadByType(CardNode* nodeToSet, CardBraider::BraidType type);
 
-    void setBraidHeadByType(CardNode* nodeToSet, CardBraider::AddType type);
+    void remove(CardNode* node, BraidType type);
 
 
 public:
@@ -130,6 +124,17 @@ public:
     //@para node
     //      the node to set as the head, can be nullptr
     void setConditionHead(CardNode* node);
+
+    //Gets the next node based on the given type.
+    //@precondition
+    //      none
+    //@return
+    //      the next node based on type
+    //@para node
+    //      the node to get the next node from
+    //@para type
+    //      the type of braid to get the next node from
+    static CardNode* getNextNodeByType(CardNode* node, CardBraider::BraidType type);
 
 };
 

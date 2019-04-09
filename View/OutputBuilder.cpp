@@ -20,30 +20,22 @@ OutputBuilder::~OutputBuilder()
 #endif
 }
 
-string OutputBuilder::buildOutput(bool isAscending, SortType sortType, CardNode* head)
+string OutputBuilder::buildOutput(bool isAscending, CardBraider::BraidType type, CardNode* head)
 {
     if (head == nullptr)
     {
-        return "The collection is empty.";
+        outputString = "The collection is empty.";
     }
-    if (sortType == SortType::NAME)
+    else
     {
-        this -> buildByLastName(isAscending, head);
-    }
-    else if (sortType == SortType::YEAR)
-    {
-        this -> buildByYear(isAscending, head);
-    }
-    else if (sortType == SortType::CONDITION)
-    {
-        this -> buildByCondition(isAscending, head);
+        this -> buildByType(isAscending, head, type);
     }
 
     return this -> outputString;
 
 }
 
-void OutputBuilder::buildByLastName(bool isAscending, CardNode* node)
+void OutputBuilder::buildByType(bool isAscending, CardNode* node, CardBraider::BraidType type)
 {
     if (node == nullptr)
     {
@@ -52,47 +44,11 @@ void OutputBuilder::buildByLastName(bool isAscending, CardNode* node)
     if (isAscending)
     {
         buildCardDescription(node);
-        buildByLastName(isAscending, node -> getNextName());
+        buildByType(isAscending, CardBraider::getNextNodeByType(node, type), type);
     }
     else
     {
-        buildByLastName(isAscending, node -> getNextName());
-        buildCardDescription(node);
-    }
-}
-
-void OutputBuilder::buildByYear(bool isAscending, CardNode* node)
-{
-    if (node == nullptr)
-    {
-        return;
-    }
-    if (isAscending)
-    {
-        buildCardDescription(node);
-        buildByYear(isAscending, node -> getNextYear());
-    }
-    else
-    {
-        buildByYear(isAscending, node -> getNextYear());
-        buildCardDescription(node);
-    }
-}
-
-void OutputBuilder::buildByCondition(bool isAscending, CardNode* node)
-{
-    if (node == nullptr)
-    {
-        return;
-    }
-    if (isAscending)
-    {
-        buildCardDescription(node);
-        buildByCondition(isAscending, node -> getNextCondition());
-    }
-    else
-    {
-        buildByCondition(isAscending, node -> getNextCondition());
+        buildByType(isAscending, CardBraider::getNextNodeByType(node, type), type);
         buildCardDescription(node);
     }
 }

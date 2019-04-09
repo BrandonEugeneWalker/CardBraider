@@ -80,7 +80,7 @@
 	<string>
 	"BaseballCard.h"
 
-1554745966 source:/home/csuser/Documents/CardBraider/View/AddBaseballCardWindow.cpp
+1554778712 source:/home/csuser/Documents/CardBraider/View/AddBaseballCardWindow.cpp
 	"AddBaseballCardWindow.h"
 	"Utils.h"
 	<Fl/fl_ask.H>
@@ -141,11 +141,11 @@
 	"DeleteBaseballCardWindow.h"
 	<iostream>
 
-1554745422 source:/home/csuser/Documents/CardBraider/Model/CardBraider.cpp
+1554780619 source:/home/csuser/Documents/CardBraider/Model/CardBraider.cpp
 	"CardBraider.h"
 	<iostream>
 
-1554778456 /home/csuser/Documents/CardBraider/Model/CardBraider.h
+1554781112 /home/csuser/Documents/CardBraider/Model/CardBraider.h
 	<string>
 	<iostream>
 	<vector>
@@ -155,7 +155,7 @@
 1554747321 source:/home/csuser/Documents/CardBraider/View/OutputBuilder.cpp
 	"OutputBuilder.h"
 
-1554742362 /home/csuser/Documents/CardBraider/View/OutputBuilder.h
+1554781792 /home/csuser/Documents/CardBraider/View/OutputBuilder.h
 	<string>
 	<iostream>
 	<iomanip>
@@ -187,7 +187,7 @@
 	"FileReader.h"
 	"FileWriter.h"
 
-1554745666 source:/home/csuser/Documents/CardBraider/Controller/CardCollectionController.cpp
+1554781432 source:/home/csuser/Documents/CardBraider/Controller/CardCollectionController.cpp
 	"CardCollectionController.h"
 	<iostream>
 
