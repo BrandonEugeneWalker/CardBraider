@@ -224,6 +224,9 @@ vector<CardNode*> CardBraider::findNodesToRemoveByName(string name)
 
 void CardBraider::remove(CardNode* node, BraidType type)
 {
+    #ifdef DIAGNOSTIC_OUTPUT
+        cout << "In remove for type: " << type << endl;
+    #endif // DIAGNOSTIC_OUTPUT
     CardNode* previousNode = nullptr;
     CardNode* currentNode = this -> getBraidHeadByType(type);
     while(currentNode != nullptr)
@@ -235,7 +238,7 @@ void CardBraider::remove(CardNode* node, BraidType type)
             {
                 if (nextNode != nullptr)
                 {
-                    this -> setNextNodeByType(this -> getBraidHeadByType(type), nextNode, type);
+                    this -> setBraidHeadByType(nextNode, type);
                 }
                 else
                 {
@@ -352,15 +355,15 @@ void CardBraider::setBraidHeadByType(CardNode* nodeToSet, CardBraider::BraidType
 {
     if (type == BraidType::NAME)
     {
-        this -> setNameHead(nodeToSet);
+        this -> nameHead = nodeToSet;
     }
     else if (type == BraidType::YEAR)
     {
-        this -> setYearHead(nodeToSet);
+        this -> yearHead = nodeToSet;
     }
     else if (type == BraidType::CONDITION)
     {
-        this -> setConditionHead(nodeToSet);
+        this -> conditionHead = nodeToSet;
     }
 }
 

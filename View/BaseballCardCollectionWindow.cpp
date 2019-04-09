@@ -314,10 +314,6 @@ void BaseballCardCollectionWindow::cbDeleteCard(Fl_Widget* widget, void* data)
         results = window -> controller.deleteCard(deleteCard.getLastName());
         window -> updateOutput();
     }
-    else
-    {
-        fl_message("%s", "No file was selected.");
-    }
 
     if (!results)
     {

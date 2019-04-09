@@ -123,7 +123,7 @@
 	<string>
 	"BaseballCard.h"
 
-1554745738 source:/home/csuser/Documents/CardBraider/View/BaseballCardCollectionWindow.cpp
+1554783487 source:/home/csuser/Documents/CardBraider/View/BaseballCardCollectionWindow.cpp
 	"BaseballCardCollectionWindow.h"
 	"DeleteBaseballCardWindow.h"
 	"AddBaseballCardWindow.h"
@@ -141,18 +141,18 @@
 	"DeleteBaseballCardWindow.h"
 	<iostream>
 
-1554780619 source:/home/csuser/Documents/CardBraider/Model/CardBraider.cpp
+1554784222 source:/home/csuser/Documents/CardBraider/Model/CardBraider.cpp
 	"CardBraider.h"
 	<iostream>
 
-1554782566 /home/csuser/Documents/CardBraider/Model/CardBraider.h
+1554782611 /home/csuser/Documents/CardBraider/Model/CardBraider.h
 	<string>
 	<iostream>
 	<vector>
 	"CardNode.h"
 	"Utils.h"
 
-1554782036 source:/home/csuser/Documents/CardBraider/View/OutputBuilder.cpp
+1554784962 source:/home/csuser/Documents/CardBraider/View/OutputBuilder.cpp
 	"OutputBuilder.h"
 
 1554782253 /home/csuser/Documents/CardBraider/View/OutputBuilder.h
@@ -177,7 +177,7 @@
 	"BaseballCard.h"
 	"Utils.h"
 
-1554745487 /home/csuser/Documents/CardBraider/Controller/CardCollectionController.h
+1554782904 /home/csuser/Documents/CardBraider/Controller/CardCollectionController.h
 	<string>
 	<vector>
 	"BaseballCard.h"
@@ -194,7 +194,7 @@
 1554744993 source:/home/csuser/Documents/CardBraider/IO/FileWriter.cpp
 	"FileWriter.h"
 
-1554745966 /home/csuser/Documents/CardBraider/IO/FileWriter.h
+1554782756 /home/csuser/Documents/CardBraider/IO/FileWriter.h
 	<string>
 	<sstream>
 	<iostream>

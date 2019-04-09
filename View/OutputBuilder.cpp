@@ -55,6 +55,10 @@ void OutputBuilder::buildByType(bool isAscending, CardNode* node, CardBraider::B
 
 void OutputBuilder::buildCardDescription(CardNode* node)
 {
+    if(node == nullptr)
+    {
+        return;
+    }
     stringstream outputStream;
 
     string firstName = node -> getFirstName();
